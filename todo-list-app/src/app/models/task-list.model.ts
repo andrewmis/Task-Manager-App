@@ -1,3 +1,9 @@
-export interface TaskList {
+import { Task } from './task.model';
 
+export interface TaskList {
+  id: string;
+  title: string;
+  description: string;
+  allTasksCompleted: boolean;
+  tasks: Task[];
 }
