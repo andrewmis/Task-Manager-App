@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-title class="font-weight-normal">Create a New List</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="listData">
+      <div class="fields">
+        <!-- Title -->
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            required
+            formControlName="title"
+            placeholder="My To-do List">
+        </mat-form-field>
+        <br>
+        <!-- Description -->
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Ex: My grocery list for next week."></textarea>
+        </mat-form-field>
+        <br>
+        <!-- Date due -->
+        <mat-form-field appearance="fill">
+          <mat-label>Task Due Date</mat-label>
+          <input
+            matInput
+            [min]="minDate"
+            [matDatepicker]="picker"
+            formControlName="allTasksDue">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- Cancel/Create Buttons -->
+      <div class="align-right">
+        <button
+          class="margin-right-10px"
+          mat-raised-button
+          (click)="onCancelCreate()">
+          Cancel
+        </button>
+        <button
+          mat-raised-button
+          [disabled]="!canCreateList()"
+          (click)="onCreate()">
+          Create
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

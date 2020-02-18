@@ -5,5 +5,6 @@ export interface TaskList {
   title: string;
   description: string;
   allTasksCompleted: boolean;
+  allTasksDue: Date;
   tasks: Task[];
 }

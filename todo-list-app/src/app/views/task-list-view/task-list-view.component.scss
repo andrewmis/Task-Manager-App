@@ -1,0 +1,61 @@
+mat-card {
+  padding: unset;
+  max-width: 500px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  margin: unset;
+  padding: unset;
+}
+
+.cdk-drag-preview > * {
+  display: none;
+}
+
+mat-form-field {
+  margin-left: 1%;
+}
+
+.align-text-right {
+  text-align: right;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.card-header-container {
+  border-radius: 4px;
+  padding: 10px 0 0 10px;
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: unset;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 2;
+}
+
+.font-weight-normal {
+  font-weight: normal;
+}
+
+.margin-right-10px {
+  margin-right: 0.625rem;
+}
+
+.margin-all-1-percent {
+  margin: 1%;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}

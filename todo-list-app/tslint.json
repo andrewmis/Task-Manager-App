@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "allow-camel-case": true,
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
