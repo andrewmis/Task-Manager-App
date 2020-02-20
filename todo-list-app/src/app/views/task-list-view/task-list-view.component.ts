@@ -5,6 +5,8 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormGroup, FormControl } from '@angular/forms';
 import { TaskPriority } from 'src/app/enumerations/task-priority';
 import { ListManagerService } from 'src/app/services/list-manager.service';
+import { TaskManagerService } from 'src/app/services/task-manager.service';
+import { GetTodaysDate, GetCurrentTime } from 'src/app/shared/utilities';
 
 @Component({
     selector: 'task-list-view',
@@ -26,7 +28,8 @@ export class TaskListViewComponent implements OnInit {
 
   private listDataCopy: any = {};
 
-  constructor(private _listManager: ListManagerService) {
+  constructor(private _listManager: ListManagerService,
+              private _taskManager: TaskManagerService) {
     this.listData = this._listManager.listBeingViewed;
     this.quickAddFormGroup = new FormGroup({
       name: new FormControl()
@@ -44,6 +47,15 @@ export class TaskListViewComponent implements OnInit {
   public toggleTask(event) {
     const taskId = event.option.value;
     const newIsComplete = event.option.selected;
+
+    const taskToUpdate = this.tasks.find(task => task.id === taskId);
+    taskToUpdate.isComplete = newIsComplete;
+
+    if (newIsComplete) {
+      taskToUpdate.dateCompleted = GetTodaysDate();
+      taskToUpdate.timeCompleted = GetCurrentTime();
+    }
+
   }
 
   public onReorderTask(event) {
@@ -54,6 +66,10 @@ export class TaskListViewComponent implements OnInit {
     this.isEditing = !this.isEditing;
   }
 
+  public onEditList(): void {
+    this._listManager.beginEditingList(this.listData);
+  }
+
   public onDeleteTask(taskId: string): void {
     if (confirm('Are you sure you want to delete this task?')) {
       // Delete task
@@ -61,9 +77,11 @@ export class TaskListViewComponent implements OnInit {
     }
   }
 
-  public onQuickAddTask(taskName: string): void {
-    if (this.quickAddFormGroup.valid /*&& !this._taskManager.doesNameExist(taskName)*/) {
+  public onQuickAddTask(): void {
+    const taskName = this.quickAddFormGroup.controls.name.value;
+    if (this.quickAddFormGroup.valid && !this._listManager.doesTaskNameExistOnListBeingViewed(taskName)) {
       // Create new task with name
+      this._taskManager.quickCreateTask(taskName);
       // Clear form
       this.quickAddFormGroup.reset();
     }
@@ -103,6 +121,14 @@ export class TaskListViewComponent implements OnInit {
 
   public get reorderTooltip(): string {
     return this.isReordering ? 'Finish reordering tasks' : 'Reorder tasks';
+  }
+
+  public get editIcon(): string {
+    return this.isEditing ? 'check' : 'edit';
+  }
+
+  public get editTooltip(): string {
+    return this.isEditing ? 'Finish editing tasks' : 'Edit tasks';
   }
 
   public getTaskPriorityIcon(priority: TaskPriority): string {

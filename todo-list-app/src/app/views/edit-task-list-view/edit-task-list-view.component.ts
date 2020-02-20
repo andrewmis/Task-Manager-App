@@ -13,6 +13,8 @@ import { ListManagerService } from 'src/app/services/list-manager.service';
 })
 export class EditTaskListViewComponent implements OnInit {
 
+  public listData: TaskList;
+
   public id: string;
   public title: string;
   public description: string;
@@ -25,11 +27,19 @@ export class EditTaskListViewComponent implements OnInit {
   public listFields: FormGroup;
 
   constructor(private _listManager: ListManagerService) {
+    this.listData = this._listManager.listUnderEdit;
   }
 
   ngOnInit() {
-    this.id = this._listManager.listUnderEdit.id;
-    this.title = this._listManager.listUnderEdit.title;
+    const copyOfList: any = {};
+    Object.assign(copyOfList, this.listData);
+
+    this.id = copyOfList.id;
+    this.title = copyOfList.title;
+    this.description = copyOfList.description;
+    this.allTaskCompleted = copyOfList.allTaskCompleted;
+    this.allTasksDue = copyOfList.allTasksDue;
+    this.tasks = copyOfList.tasks;
 
     this.listFields = new FormGroup ({
       title: new FormControl(this.title),

@@ -1,15 +1,17 @@
-<mat-grid-list cols="3" rows="4">
+<mat-grid-list cols="2" rowHeight="3:2">
   <!-- Left Side -->
   <mat-grid-tile>
     <!-- View all created lists -->
-    <created-task-lists-view class="window"></created-task-lists-view>
-  </mat-grid-tile>
-
-  <!-- Middle -->
-  <mat-grid-tile>
+    <ng-container *ngIf="inDefaultState">
+      <created-task-lists-view class="window"></created-task-lists-view>
+    </ng-container>
     <!-- View list -->
     <ng-container *ngIf="inListViewState">
       <task-list-view class="window"></task-list-view>
+    </ng-container>
+    <!-- Edit a list-->
+    <ng-container *ngIf="inListEditState">
+      <edit-task-list-view class="window"></edit-task-list-view>
     </ng-container>
   </mat-grid-tile>
 
@@ -25,20 +27,10 @@
       <create-task-view class="window"></create-task-view>
     </ng-container>
 
-    <!-- Edit a list-->
-    <ng-container *ngIf="inListEditState">
-      <edit-task-list-view class="window"></edit-task-list-view>
-    </ng-container>
-
     <!-- Edit a task -->
     <ng-container *ngIf="inTaskEditState">
       <edit-task-view class="window"></edit-task-view>
     </ng-container>
   </mat-grid-tile>
 </mat-grid-list>
-
-<!--
-<ng-container *ngIf="inDefaultState">
-  <created-task-lists-view></created-task-lists-view>
-</ng-container> -->
 

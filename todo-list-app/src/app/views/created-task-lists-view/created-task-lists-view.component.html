@@ -101,16 +101,16 @@
             </button>
           </ng-container>
         </div>
-        <mat-divider></mat-divider>
       </mat-action-list>
     </div>
 
   </div>
   <!-- Quick Add Bar -->
   <form
-    class="flex"
-    (ngSubmit)="onQuickAddTaskList()"
-    [formGroup]="quickAddFormGroup">
+  class="flex"
+  (ngSubmit)="onQuickAddTaskList()"
+  [formGroup]="quickAddFormGroup">
+    <mat-divider></mat-divider>
     <!-- Task Name -->
     <mat-form-field
     class="flex-grow"

@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { ListApiService } from 'src/app/services/list-api.service';
-import { TaskList } from 'src/app/models/task-list.model';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { ListManagerService } from 'src/app/services/list-manager.service';
-import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { TaskManagerService } from 'src/app/services/task-manager.service';
 
 @Component({

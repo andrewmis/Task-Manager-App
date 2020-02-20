@@ -12,7 +12,10 @@
     <!-- Task List Buttons (Add Task/Edit) -->
     <div>
       <!-- Edit Task List -->
-      <button mat-icon-button matTooltip="Edit this list">
+      <button
+        mat-icon-button
+        (click)="onEditList()"
+        matTooltip="Edit this list">
         <mat-icon>settings</mat-icon>
       </button>
       <!-- Close Task List -->
@@ -45,14 +48,14 @@
       </span>
       <div>
         <!-- Edit Toggle -->
-        <mat-slide-toggle
-          (change)="onToggleEdit()"
+        <button
+          mat-icon-button
+          class="align-self-center"
+          (click)="onToggleEdit()"
           [disabled]="isReordering"
-          [checked]="isEditing"
-          labelPosition="before"
-          matTooltip="Toggle Task Editor">
-          Edit Mode
-        </mat-slide-toggle>
+          [matTooltip]="editTooltip">
+          <mat-icon>{{ editIcon }}</mat-icon>
+        </button>
         <!-- Reorder Tasks Button -->
         <button
           mat-icon-button

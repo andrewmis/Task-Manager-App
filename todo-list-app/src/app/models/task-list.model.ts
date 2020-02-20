@@ -4,7 +4,8 @@ export interface TaskList {
   id: string;
   title: string;
   description: string;
+  dateCreated: string;
   allTasksCompleted: boolean;
-  allTasksDue: Date;
+  allTasksDue: string;
   tasks: Task[];
 }

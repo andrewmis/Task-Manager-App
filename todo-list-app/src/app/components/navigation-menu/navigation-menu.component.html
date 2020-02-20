@@ -1,11 +1,13 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary">
-  <!-- Hamburger menu -->
-  <button mat-icon-button (click)="drawer.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
   <!-- App Name -->
   <h1 class="app-name">{{ appName }}</h1>
+  <button
+    color="accent"
+    (click)="onSaveData()"
+    mat-raised-button>
+    Save All
+  </button>
 </mat-toolbar>
 
 <!-- Page content -->

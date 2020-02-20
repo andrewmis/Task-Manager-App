@@ -88,7 +88,12 @@ export class CreatedTaskListsViewComponent {
   }
 
   public onDeleteTaskList(list: TaskList) {
-    this._listManager.deleteList(list);
+    const prompt = 'Are you sure you want to delete this list?' +
+                   '\nAll of the tasks will also be deleted.';
+
+    if (confirm(prompt)) {
+      this._listManager.deleteList(list);
+    }
   }
 
   // private validateName(control: FormControl) {

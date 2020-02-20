@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { TaskList } from '../models/task-list.model';
 import { ListApiService } from './list-api.service';
 import { v4 as GenerateUuid } from 'uuid';
+import { GetTodaysDate } from '../shared/utilities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListManagerService {
-  public taskLists: TaskList[];
+  public taskLists: TaskList[] = [];
 
   private quickAddTemplate = {
     id: '',
     title: '',
     description: '',
+    dateCreate: null,
     allTasksCompleted: false,
     allTasksDue: null,
     tasks: []
@@ -56,6 +58,13 @@ export class ListManagerService {
 
   public deleteList(listData: TaskList): void {
     const filteredLists = this.taskLists.filter(list => list.id !== listData.id);
+
+    if (this._isViewingList) {
+      if (this.listBeingViewed.id === listData.id) {
+        this.resetStates();
+      }
+    }
+
     this.taskLists = filteredLists;
   }
 
@@ -70,6 +79,7 @@ export class ListManagerService {
     // Populate with name and new id
     newList.id = GenerateUuid();
     newList.title = name;
+    newList.dateCreated = GetTodaysDate();
 
     // Push to db
     this.taskLists.push(newList);
@@ -91,6 +101,10 @@ export class ListManagerService {
     return !!this.taskLists.find(list => list.title === name);
   }
 
+  public doesTaskNameExistOnListBeingViewed(name: string): boolean {
+    return !!this._listBeingViewed.tasks.find(task => task.title === name);
+  }
+
   public beginCreateList(): void {
     this._isCreatingList = true;
   }
@@ -101,11 +115,24 @@ export class ListManagerService {
   }
 
   public beginEditingList(list: TaskList): void {
+    this.stopViewingList();
     this._isEditingList = true;
     this._listUnderEdit = list;
   }
 
+  public saveEditsToList(): void {
+    // Save edits
+
+    // Switch back to static view
+    this.stopEditingList();
+  }
+
   public cancelEditingList(): void {
+    this.stopEditingList();
+  }
+
+  private stopEditingList(): void {
+    this.beginViewingList(this.listUnderEdit);
     this._listUnderEdit = undefined;
     this._isEditingList = false;
   }
@@ -113,5 +140,10 @@ export class ListManagerService {
   public stopViewingList(): void {
     this._isViewingList = false;
     this._listBeingViewed = undefined;
+  }
+
+  private resetStates() {
+    this.stopViewingList();
+    this.cancelEditingList();
   }
 }

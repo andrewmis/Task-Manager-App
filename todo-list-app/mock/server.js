@@ -1,5 +1,5 @@
-var app = require('./app.js');
 var debug = require('debug')('todo-list-app:server');
+var app = require('./app.js');
 var http = require('http');
 var cors = require('cors');
 
@@ -31,7 +31,7 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
+  // Handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -47,28 +47,6 @@ function onError(error) {
 }
 
 function onListening() {
-  var addr = server.address();
   console.log(`Listening on port ${port}!`),
   debug('Listening on ' + port);
 }
-// const express = require('express');
-// const server = express();
-// const bodyParser = require('body-parser');
-
-// const db = require('./db.json');
-
-// server.use(express.json());
-// server.use(express.urlencoded({ extended: false }));
-// server.use(bodyParser.json())
-
-// let todos = [{id: 1, name: 'Cohen Interview Assignment'}];
-
-// const PORT = process.env.PORT || 3000
-
-// server.get('/saved-lists', (req, res) => {
-//     return res.json(db);
-// });
-
-// server.listen(PORT, () =>
-//   console.log(`Listening on port ${PORT}!`),
-// );

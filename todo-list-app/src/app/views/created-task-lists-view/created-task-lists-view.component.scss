@@ -21,7 +21,7 @@ mat-checkbox {
 
 }
 
-::ng-deep .mat-form-field-wrapper {
+form::ng-deep .mat-form-field-wrapper {
   margin: unset;
   padding: unset;
 }
@@ -43,7 +43,7 @@ mat-selection-list {
 }
 
 mat-form-field {
-  margin-left: 1%;
+  margin: 1% 0 1% 1%;
 }
 
 .mat-icon-button {
@@ -125,10 +125,6 @@ mat-form-field {
   button {
     height: 100%;
   }
-}
-
-::ng-deep.mat-pseudo-checkbox{
-  display: none !important;
 }
 
 .full-width {
