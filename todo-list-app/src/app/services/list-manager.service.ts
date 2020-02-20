@@ -11,13 +11,13 @@ import { TaskManagerService } from './task-manager.service';
 export class ListManagerService {
   public taskLists: TaskList[] = [];
 
-  private quickAddTemplate = {
+  private quickAddTemplate: TaskList = {
     id: '',
     title: '',
     description: '',
-    dateCreate: null,
     allTasksCompleted: false,
-    allTasksDueDate: null,
+    allTasksCompletedDate: '',
+    allTasksDueDate: '',
     tasks: []
   };
 

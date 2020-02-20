@@ -1,11 +1,12 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary">
   <!-- App Name -->
-  <h1 class="app-name">{{ appName }}</h1>
+  <h1>{{ appName }}</h1>
   <button
     color="accent"
-    (click)="onSaveData()"
-    mat-raised-button>
+    mat-raised-button
+    (click)="onSaveAll()"
+    matTooltip="Save all list data.">
     Save All
   </button>
 </mat-toolbar>

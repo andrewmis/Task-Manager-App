@@ -133,11 +133,11 @@
     (cdkDropListDropped)="onReorderTask($event)"
     (selectionChange)="toggleTask($event)">
     <!-- Draggable list item wrapping each Task -->
-    <div
+    <div *ngFor="let task of tasks"
       cdkDrag
       class="flex"
       [cdkDragDisabled]="!isReordering"
-      *ngFor="let task of tasks">
+      [matTooltip]="task.description">
       <mat-list-option
         [value]="task.id"
         [disabled]="isEditing || isReordering"

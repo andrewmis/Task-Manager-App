@@ -107,6 +107,7 @@
         [disabled]="isDeleting || isReordering"
         [class.reorder-width]="isReordering"
         [class.edit-width]="isDeleting"
+        [matTooltip]="taskList.description"
         (click)="onSelectList(taskList)">
         <div class="flex-space-between full-width">
           <!-- Task Title -->
