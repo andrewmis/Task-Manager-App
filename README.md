@@ -1,4 +1,5 @@
 ## Personal Task Manager Application
+![Usage example](https://github.com/andrewmis/Cohen-Project/blob/master/Demo/Demo%20GIF.gif)
 
 ### Technology Used
 * Angular 8.3.25
@@ -40,6 +41,3 @@
 * Sortable options (completed/priority/due date)
 * Task Tags
 * Task Search
-
-### Demo
-![Usage example](https://github.com/andrewmis/Cohen-Project/blob/master/Demo/Demo%20GIF.gif)
