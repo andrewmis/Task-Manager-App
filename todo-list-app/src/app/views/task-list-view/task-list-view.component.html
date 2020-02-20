@@ -1,0 +1,207 @@
+<mat-card>
+  <div>
+    <!-- Card Header -->
+    <div class="card-header-container flex-space-between">
+      <div>
+        <!-- Task List Title -->
+        <mat-card-title class="font-weight-normal">
+          {{ title }}
+        </mat-card-title>
+        <!-- Task List Description -->
+        <mat-card-subtitle>{{ description ? description : 'No description' }}</mat-card-subtitle>
+        <!-- Task List Due Date -->
+        <mat-card-subtitle>Due Date: {{ allTasksDueDate ? allTasksDueDate : 'none' }}</mat-card-subtitle>
+      </div>
+      <!-- Task List Buttons (Add Task/Edit) -->
+      <div>
+        <!-- Edit Task List -->
+        <button
+          mat-icon-button
+          (click)="onEditList()"
+          matTooltip="Edit this list">
+          <mat-icon>settings</mat-icon>
+        </button>
+        <!-- Close Task List -->
+        <button
+          mat-icon-button
+          (click)="onStopViewingList()"
+          matTooltip="Close this list view">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- List of Task Options -->
+    <div class="flex-space-between padding-10px">
+      <span class="align-self-center">Filter options placeholder...</span>
+      <!-- Filter options by -->
+      <!-- <span class="bold align-self-center">
+        Show:
+        <mat-checkbox
+          value="incomplete"
+          (change)="onToggleFilter($event)"
+          [checked]="isFilteringByIncomplete">
+          Incomplete
+        </mat-checkbox>
+        <mat-checkbox
+          value="complete"
+          (change)="onToggleFilter($event)"
+          [checked]="isFilteringByComplete">
+          Completed
+        </mat-checkbox>
+      </span> -->
+      <div>
+        <!-- Edit Button -->
+        <button
+          mat-icon-button
+          class="align-self-center"
+          (click)="onToggleEdit()"
+          [disabled]="isReordering || !hasTasks"
+          [matTooltip]="editTooltip">
+          <mat-icon>{{ editIcon }}</mat-icon>
+        </button>
+        <!-- Reorder Tasks Button -->
+        <button
+          mat-icon-button
+          [disabled]="isEditing || !hasMultipleTasks"
+          class="align-self-center"
+          (click)="onToggleReorder()"
+          [matTooltip]="reorderTooltip">
+          <mat-icon>{{ reorderIcon }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- List of Tasks -->
+    <div class="card-content">
+      <ng-container *ngIf="shouldShowNoTasks() then showNoTasks; else showAllTasks"></ng-container>
+    </div>
+  </div>
+
+  <!-- Quick Add Bar -->
+  <form
+  class="flex"
+  (ngSubmit)="onQuickAddTask()"
+  [formGroup]="quickAddFormGroup">
+    <mat-divider></mat-divider>
+      <!-- Task Name -->
+      <mat-form-field
+      class="flex-grow"
+      appearance="outline">
+        <mat-label>Create a new task</mat-label>
+        <input
+          matInput
+          placeholder="My task"
+          formControlName="name">
+      </mat-form-field>
+      <!-- New Task Buttons -->
+      <div class="form-buttons">
+        <!-- Quick Add -->
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          class="margin-right-5px"
+          matTooltip="Add a new task with just a name.">
+          Quick Add
+        </button>
+        <!-- Detailed Add -->
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="onDetailedAddTask($event)"
+          matTooltip="Add a new task with advanced details.">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+  </form>
+</mat-card>
+
+<!-- No tasks to show -->
+<ng-template #showNoTasks>
+  <div class="no-tasks-view" fxLayout="column" fxLayoutAlign="center center">
+    <h3 class="font-weight-normal">No tasks exist.</h3>
+    <span>Create a new task to begin.</span>
+  </div>
+</ng-template>
+
+<!-- Show all tasks -->
+<ng-template #showAllTasks>
+  <mat-selection-list
+    cdkDropList
+    [cdkDropListData]="tasks"
+    (cdkDropListDropped)="onReorderTask($event)"
+    (selectionChange)="toggleTask($event)">
+    <!-- Draggable list item wrapping each Task -->
+    <div *ngFor="let task of tasks"
+      cdkDrag
+      class="flex"
+      [cdkDragDisabled]="!isReordering"
+      [matTooltip]="task.description">
+      <mat-list-option
+        [value]="task.id"
+        [disabled]="isEditing || isReordering"
+        [selected]="task.isComplete"
+        [class.reorder-width]="isReordering"
+        [class.edit-width]="isEditing">
+        <div class="flex-space-between">
+          <!-- Task Title -->
+          <h4
+            mat-line
+            class="font-weight-normal"
+            [title]="task.description"
+            [ngClass]="{strike: task.isComplete}">
+            {{ task.title }}
+          </h4>
+          <div class="flex">
+            <!-- Task Date (Due or Completion) -->
+            <div class="margin-right-10px">
+              <ng-container *ngIf="task.isComplete; else taskDueDate;">
+                <h5 [matTooltip]="task.dateCompleted">DONE</h5>
+              </ng-container>
+              <ng-template #taskDueDate>
+                <h5 [matTooltip]="task.dateDue" class="due-date">{{ task.dateDue ? 'DUE DATE' : '' }}</h5>
+              </ng-template>
+            </div>
+            <!-- Task Priority Icon -->
+            <mat-icon
+              class="align-self-center"
+              [style.color]="getTaskPriorityColor(task.priority)">
+              {{ getTaskPriorityIcon(task.priority) }}
+            </mat-icon>
+          </div>
+        </div>
+      </mat-list-option>
+      <!-- Reorder State Options -->
+      <!-- Drag handle -->
+      <span
+        cdkDragHandle
+        *ngIf="isReordering"
+        class="align-self-center"
+        matTooltip="Drag to reorder this task">
+        <mat-icon>
+          drag_indicator
+        </mat-icon>
+      </span>
+      <!-- Edit State Options -->
+      <ng-container *ngIf="isEditing">
+        <!-- Edit button -->
+        <button
+          mat-icon-button
+          (click)="onEditTask(task)"
+          [disabled]="task.isComplete"
+          class="align-self-center"
+          matTooltip="Edit this task">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <!-- Delete Button -->
+        <button mat-icon-button
+          class="align-self-center"
+          (click)="onDeleteTask(task.id)"
+          matTooltip="Delete task">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </mat-selection-list>
+</ng-template>

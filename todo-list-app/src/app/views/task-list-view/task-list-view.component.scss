@@ -1,0 +1,161 @@
+@import '~@angular/material/_theming.scss';
+
+@include mat-core();
+
+// Default theme:
+$primary: mat-palette($mat-blue,800);
+$accent: mat-palette($mat-teal);
+$theme: mat-light-theme($primary, $accent);
+$defaultIconSize: 1.5rem;
+$cardContentHeight: 445px;
+
+mat-card {
+  padding: unset;
+  max-width: 31.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+mat-checkbox {
+  padding: 0.3125rem;
+
+}
+
+.card-content {
+  min-height: $cardContentHeight;
+  max-height: $cardContentHeight;
+  overflow-y: scroll;
+}
+
+.card-content::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+.card-content::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+.card-content::-webkit-scrollbar-thumb
+{
+  background-color: mat-color($primary, default);
+}
+
+
+form::ng-deep .mat-form-field-wrapper {
+  margin: unset;
+  padding: unset;
+}
+
+mat-slide-toggle {
+  margin-right: 5px;
+}
+
+.due-date {
+  color: red;
+}
+
+.reorder-width {
+  width: calc(100% - #{$defaultIconSize}) !important;
+}
+
+.edit-width {
+  width: calc(100% - 2 * #{$defaultIconSize}) !important;
+}
+
+mat-selection-list {
+  padding-top: unset;
+}
+
+mat-form-field {
+  margin: 1% 0 1% 1%;
+}
+
+.mat-icon-button {
+  width: fit-content;
+}
+
+.cdk-drag-preview > * {
+  display: none;
+}
+
+.align-text-right {
+  text-align: right;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.card-header-container {
+  border-radius: 0.25px;
+  padding: 0.625rem 0.625rem 0 0.625rem;
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: unset;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 2;
+}
+
+.font-weight-normal, mat-checkbox {
+  font-weight: normal;
+}
+
+.padding-10px {
+  padding: 0.625rem;
+}
+
+.margin-right-5px {
+  margin-right: 0.3125rem;
+}
+
+.margin-right-10px {
+  margin-right: 0.625rem;
+}
+
+.margin-right-unset {
+  margin-right: unset;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.task-count {
+  font-size: 1rem;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons {
+  margin: 1%;
+
+  button {
+    height: 100%;
+  }
+}
+
+.no-tasks-view {
+  height: $cardContentHeight;
+}

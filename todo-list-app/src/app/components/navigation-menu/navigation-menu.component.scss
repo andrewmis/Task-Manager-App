@@ -1,0 +1,11 @@
+$toolbarHeight: 64px;
+
+.content-container {
+  width: 100%;
+  height: calc(100% - #{$toolbarHeight});
+  background: lightgrey;
+}
+
+button {
+  margin-left: 20px;
+}
