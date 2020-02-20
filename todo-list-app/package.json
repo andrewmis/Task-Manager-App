@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --kill-others \"nodemon ./mock/server.js\" \"ng serve --open\"",
+    "start": "concurrently --kill-others \"nodemon ./mock/server.js\" \"ng serve --open --proxy-config ./mock/proxy.conf.json\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

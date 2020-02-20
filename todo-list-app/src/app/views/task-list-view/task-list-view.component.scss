@@ -56,6 +56,10 @@ mat-slide-toggle {
   margin-right: 5px;
 }
 
+.due-date {
+  color: red;
+}
+
 .reorder-width {
   width: calc(100% - #{$defaultIconSize}) !important;
 }

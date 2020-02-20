@@ -155,12 +155,14 @@
           </h4>
           <div class="flex">
             <!-- Task Date (Due or Completion) -->
-            <ng-container *ngIf="task.isComplete; else taskDueDate;">
-              <h5 class="margin-right-10px no-wrap">Completed {{ task.dateCompleted }}</h5>
-            </ng-container>
-            <ng-template #taskDueDate>
-              <h5 class="font-weight-normal margin-right-10px">{{ task.dateDue }}</h5>
-            </ng-template>
+            <div class="margin-right-10px">
+              <ng-container *ngIf="task.isComplete; else taskDueDate;">
+                <h5 [matTooltip]="task.dateCompleted">DONE</h5>
+              </ng-container>
+              <ng-template #taskDueDate>
+                <h5 [matTooltip]="task.dateDue" class="due-date">{{ task.dateDue ? 'DUE DATE' : '' }}</h5>
+              </ng-template>
+            </div>
             <!-- Task Priority Icon -->
             <mat-icon
               class="align-self-center"

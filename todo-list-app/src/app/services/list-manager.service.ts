@@ -159,7 +159,19 @@ export class ListManagerService {
 
   public toggleAllTasks(listId, newCompleteValue): void {
     const listToToggle = this.taskLists.find(list => list.id === listId);
-    listToToggle.tasks.forEach(task => task.isComplete = newCompleteValue);
+
+    // Iterate through tasks and update completion properties
+    listToToggle.tasks.forEach(task => {
+      // Set completion status
+      task.isComplete = newCompleteValue;
+
+      // Set completion date
+      if (newCompleteValue) {
+        task.dateCompleted = GetTodaysDate();
+      }
+    });
+
+    // Update list's completion status
     listToToggle.allTasksCompleted = newCompleteValue;
   }
 

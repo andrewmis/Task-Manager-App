@@ -12,9 +12,11 @@ const SAVED_LISTS = 'saved-lists';
 })
 export class ListApiService {
 
-  // tslint:disable-next-line: variable-name
   constructor(private _http: HttpClient) {}
 
+  /**
+   * Get all of the previously saved list data.
+   */
   public fetchAllLists$(): Observable<TaskList[]> {
     const getUri = [environment.api, SAVED_LISTS].join('/');
 
@@ -27,8 +29,11 @@ export class ListApiService {
     );
   }
 
+  /**
+   * Replace the previously saved list data with the given data.
+   * @param lists The new lists to save.
+   */
   public saveAllLists$(lists: any): Observable<void> {
-    console.log('posting data: ', lists);
     const postUri = [environment.api, 'saved-lists'].join('/');
 
     return this._http.post(postUri, lists, { headers : { 'Content-Type': 'application/json' } }).pipe(
