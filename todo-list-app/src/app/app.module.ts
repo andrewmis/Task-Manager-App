@@ -14,6 +14,7 @@ import { HomeViewComponent } from './views/home-view/home-view.component';
 import { CoreModule } from './core/core.module';
 import { TaskListViewComponent } from './views/task-list-view/task-list-view.component';
 import { TaskViewComponent } from './views/task-view/task-view.component';
+import { CreatedTaskListsViewComponent } from './views/created-task-lists-view/created-task-lists-view.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TaskViewComponent } from './views/task-view/task-view.component';
     EditTaskListViewComponent,
     EditTaskViewComponent,
     TaskListViewComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    CreatedTaskListsViewComponent,
   ],
   imports: [
     BrowserModule,

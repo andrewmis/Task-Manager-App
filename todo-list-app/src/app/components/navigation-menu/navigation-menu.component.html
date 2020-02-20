@@ -6,32 +6,9 @@
   </button>
   <!-- App Name -->
   <h1 class="app-name">{{ appName }}</h1>
-  <!-- Create new list -->
-  <button
-    class="toolbar-create-list"
-    mat-raised-button
-    (click)="onCreateList()">
-    Create List
-  </button>
 </mat-toolbar>
 
-<!-- Side Navigation -->
-<mat-drawer-container class="content-container">
-  <mat-drawer #drawer class="sidenav-container" mode="side">
-    <h4>Lists</h4>
-    <div class="sidenav-links">
-      <a href="" (click)="query()">All</a>
-      <a href="" (click)="query()">Recent</a>
-    </div>
-    <h4>Tasks</h4>
-    <div class="sidenav-links">
-      <a href="" (click)="query()">Past Due</a>
-      <a href="" (click)="query()">Due Today</a>
-      <a href="" (click)="query()">Due Tomorrow</a>
-    </div>
-  </mat-drawer>
-
-  <!-- Page content -->
+<!-- Page content -->
+<div class="content-container">
   <ng-content select="[content]"></ng-content>
-
-</mat-drawer-container>
+</div>

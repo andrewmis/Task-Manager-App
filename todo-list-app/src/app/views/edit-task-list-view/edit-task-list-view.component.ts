@@ -3,6 +3,7 @@ import { TaskList } from 'src/app/models/task-list.model';
 import { Task } from 'src/app/models/task.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GetTodaysDate } from 'src/app/shared/utilities';
+import { ListManagerService } from 'src/app/services/list-manager.service';
 
 @Component({
     // tslint:disable-next-line: component-selector
@@ -11,7 +12,6 @@ import { GetTodaysDate } from 'src/app/shared/utilities';
     styleUrls: ['edit-task-list-view.component.scss']
 })
 export class EditTaskListViewComponent implements OnInit {
-  @Input() listData: TaskList;
 
   public id: string;
   public title: string;
@@ -24,12 +24,12 @@ export class EditTaskListViewComponent implements OnInit {
 
   public listFields: FormGroup;
 
-  constructor() {
+  constructor(private _listManager: ListManagerService) {
   }
 
   ngOnInit() {
-    this.id = this.listData.id;
-    this.title = this.listData.title;
+    this.id = this._listManager.listUnderEdit.id;
+    this.title = this._listManager.listUnderEdit.title;
 
     this.listFields = new FormGroup ({
       title: new FormControl(this.title),
@@ -47,6 +47,6 @@ export class EditTaskListViewComponent implements OnInit {
   }
 
   public onCancelEdit(): void {
-
+    this._listManager.cancelEditingList();
   }
 }

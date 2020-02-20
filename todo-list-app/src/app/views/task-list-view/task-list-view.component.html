@@ -1,106 +1,183 @@
 <mat-card>
   <div class="card-header-container flex-space-between">
     <div>
-      <mat-card-title class="font-weight-normal">{{ title }}</mat-card-title>
+      <!-- Task List Title -->
+      <mat-card-title class="font-weight-normal">
+        {{ title }}
+        <span class="task-count">({{ getCompletedCount() }}/{{ getTotalCount()}})</span>
+      </mat-card-title>
+      <!-- Task List Description -->
       <mat-card-subtitle>{{ description }}</mat-card-subtitle>
     </div>
+    <!-- Task List Buttons (Add Task/Edit) -->
     <div>
+      <!-- Edit Task List -->
       <button mat-icon-button matTooltip="Edit this list">
-        <mat-icon>edit</mat-icon>
+        <mat-icon>settings</mat-icon>
+      </button>
+      <!-- Close Task List -->
+      <button
+        mat-icon-button
+        (click)="onStopViewingList()"
+        matTooltip="Close this list view">
+        <mat-icon>close</mat-icon>
       </button>
     </div>
   </div>
   <mat-divider></mat-divider>
   <mat-card-content>
+    <div class="flex-space-between padding-10px">
+      <!-- Filter by -->
+      <span class="bold align-self-center">
+        Show:
+        <mat-checkbox
+          value="incomplete"
+          (change)="onToggleFilter($event)"
+          [checked]="isFilteringByIncomplete">
+          Incomplete
+        </mat-checkbox>
+        <mat-checkbox
+          value="complete"
+          (change)="onToggleFilter($event)"
+          [checked]="isFilteringByComplete">
+          Completed
+        </mat-checkbox>
+      </span>
+      <div>
+        <!-- Edit Toggle -->
+        <mat-slide-toggle
+          (change)="onToggleEdit()"
+          [disabled]="isReordering"
+          [checked]="isEditing"
+          labelPosition="before"
+          matTooltip="Toggle Task Editor">
+          Edit Mode
+        </mat-slide-toggle>
+        <!-- Reorder Tasks Button -->
+        <button
+          mat-icon-button
+          [disabled]="isEditing"
+          class="align-self-center"
+          (click)="onToggleReorder()"
+          [matTooltip]="reorderTooltip">
+          <mat-icon>{{ reorderIcon }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- List of Tasks -->
     <mat-selection-list
       cdkDropList
       [cdkDropListData]="tasks"
       (cdkDropListDropped)="onReorderTask($event)"
       (selectionChange)="toggleTask($event)">
-      <div class="align-text-right">
-        <mat-slide-toggle
-          (change)="onToggleEdit()"
-          [checked]="isEditing"
-          labelPosition="before">
-          Edit Mode
-        </mat-slide-toggle>
-      </div>
-      <mat-divider></mat-divider>
+      <!-- Draggable list item wrapping each Task -->
       <div
         cdkDrag
         class="flex"
-        [cdkDragDisabled]="!isEditing"
+        [cdkDragDisabled]="!isReordering"
         *ngFor="let task of tasks">
         <mat-list-option
           [value]="task.id"
-          [disabled]="isEditing"
-          [selected]="task.isComplete">
+          [disabled]="isEditing || isReordering"
+          [selected]="task.isComplete"
+          [class.reorder-width]="isReordering"
+          [class.edit-width]="isEditing">
           <div class="flex-space-between">
-            <div>
-              <h4
-                mat-line
-                class="font-weight-normal"
-                [title]="task.description"
-                [ngClass]="{strike: task.isComplete}">
-                {{ task.title }}
-              </h4>
+            <!-- Task Title -->
+            <h4
+              mat-line
+              class="font-weight-normal"
+              [title]="task.description"
+              [ngClass]="{strike: task.isComplete}">
+              {{ task.title }}
+            </h4>
+            <div class="flex">
+              <!-- Task Date (Due or Completion) -->
+              <ng-container *ngIf="task.isComplete; else taskDueDate;">
+                <h5 class="margin-right-10px no-wrap">Completed {{ task.dateCompleted }}</h5>
+              </ng-container>
+              <ng-template #taskDueDate>
+                <h5 class="font-weight-normal margin-right-10px">{{ task.dateDue }}</h5>
+              </ng-template>
+              <!-- Task Priority Icon -->
+              <mat-icon
+                class="align-self-center"
+                [style.color]="getTaskPriorityColor(task.priority)">
+                {{ getTaskPriorityIcon(task.priority) }}
+              </mat-icon>
             </div>
-            <ng-container *ngIf="task.isComplete">
-              <h5 class="margin-right-10px">Completed {{ task.dateCompleted }}</h5>
-            </ng-container>
-            <ng-container *ngIf="!task.isComplete">
-              <h5 class="font-weight-normal margin-right-10px">{{ task.dateDue }}</h5>
-            </ng-container>
           </div>
         </mat-list-option>
+        <!-- Reorder State Options -->
+        <!-- Drag handle -->
+        <span
+          cdkDragHandle
+          *ngIf="isReordering"
+          class="align-self-center"
+          matTooltip="Drag to reorder this task">
+          <mat-icon>
+            drag_indicator
+          </mat-icon>
+        </span>
+        <!-- Edit State Options -->
         <ng-container *ngIf="isEditing">
+          <!-- Edit button -->
+          <button
+            mat-icon-button
+            [disabled]="task.isComplete"
+            class="align-self-center"
+            matTooltip="Edit this task">
+            <mat-icon>edit</mat-icon>
+          </button>
           <!-- Delete Button -->
           <button mat-icon-button
-            *ngIf="isEditing"
             class="align-self-center"
             (click)="onDeleteTask(task.id)"
             matTooltip="Delete task">
             <mat-icon>delete</mat-icon>
           </button>
-          <!-- Drag handle -->
-          <span
-            cdkDragHandle
-            class="align-self-center"
-            title="Drag this task to reorder it.">
-            <mat-icon>
-              drag_indicator
-            </mat-icon>
-          </span>
         </ng-container>
       </div>
     </mat-selection-list>
     <mat-divider></mat-divider>
 
     <!-- Quick Add Bar -->
-    <div
-      class="flex"
-      *ngIf="!isEditing"
-      [formGroup]="quickAddFormGroup">
+    <form
+    class="flex"
+    (ngSubmit)="onQuickAddTask()"
+    [formGroup]="quickAddFormGroup">
       <!-- Task Name -->
       <mat-form-field
       class="flex-grow"
       appearance="outline">
-      <mat-label>Create a new task</mat-label>
-      <input
+        <mat-label>Create a new task</mat-label>
+        <input
           matInput
           required
           placeholder="My task"
           formControlName="name">
       </mat-form-field>
-      <!-- Add Button -->
-      <button
-        mat-raised-button
-        (click)="onQuickAddTask()"
-        color="primary"
-        class="margin-all-1-percent"
-        matTooltip="Quickly add a new task without filling in additional details.">
-        Quick Add
-      </button>
-    </div>
+      <!-- New Task Buttons -->
+      <div class="form-buttons">
+        <!-- Quick Add -->
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          class="margin-right-5px"
+          matTooltip="Add a new task with just a name.">
+          Quick Add
+        </button>
+        <!-- Detailed Add -->
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="onDetailedAddTask($event)"
+          matTooltip="Add a new task with advanced details.">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    </form>
   </mat-card-content>
 </mat-card>

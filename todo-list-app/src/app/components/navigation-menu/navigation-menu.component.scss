@@ -1,19 +1,9 @@
+$toolbarHeight: 4rem;
+
 .content-container {
   width: 100%;
-  height: 100%;
-  border: 0.0625‬rem solid rgba(0, 0, 0, 0.5);
-}
-
-.sidenav-container {
-  display: flex;
-  padding: 0 1.25rem 0 1.25rem;
-  height: calc(100%);
-  align-items: center;
-  justify-content: center;
-}
-
-.example-sidenav {
-  padding: 1.25rem;
+  height: calc(100% - #{$toolbarHeight});
+  background: lightgrey;
 }
 
 
@@ -23,9 +13,4 @@ h1.app-name {
 
 .toolbar-create-list {
   margin-left: 0.625rem;
-}
-
-.sidenav-links {
-  display: flex;
-  flex-direction: column;
 }

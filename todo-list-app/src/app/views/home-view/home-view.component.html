@@ -1,5 +1,44 @@
-<!-- <create-task-view></create-task-view>
-<create-task-list-view></create-task-list-view>
-<edit-task-view [parentListId]="testTaskList.id" [taskData]="testTask"></edit-task-view>
-<edit-task-list-view [listData]="testTaskList"></edit-task-list-view> -->
-<task-list-view [listData]="testTaskList"></task-list-view>
+<mat-grid-list cols="3" rows="4">
+  <!-- Left Side -->
+  <mat-grid-tile>
+    <!-- View all created lists -->
+    <created-task-lists-view class="window"></created-task-lists-view>
+  </mat-grid-tile>
+
+  <!-- Middle -->
+  <mat-grid-tile>
+    <!-- View list -->
+    <ng-container *ngIf="inListViewState">
+      <task-list-view class="window"></task-list-view>
+    </ng-container>
+  </mat-grid-tile>
+
+  <!-- Right Side -->
+  <mat-grid-tile>
+    <!-- Create a new list -->
+    <ng-container *ngIf="inListCreationState">
+      <create-task-list-view class="window"></create-task-list-view>
+    </ng-container>
+
+    <!-- Create a new detailed task -->
+    <ng-container *ngIf="inTaskCreationState">
+      <create-task-view class="window"></create-task-view>
+    </ng-container>
+
+    <!-- Edit a list-->
+    <ng-container *ngIf="inListEditState">
+      <edit-task-list-view class="window"></edit-task-list-view>
+    </ng-container>
+
+    <!-- Edit a task -->
+    <ng-container *ngIf="inTaskEditState">
+      <edit-task-view class="window"></edit-task-view>
+    </ng-container>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!--
+<ng-container *ngIf="inDefaultState">
+  <created-task-lists-view></created-task-lists-view>
+</ng-container> -->
+

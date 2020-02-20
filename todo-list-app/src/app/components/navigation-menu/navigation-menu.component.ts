@@ -7,15 +7,7 @@ import { Component } from '@angular/core';
     styleUrls: ['navigation-menu.component.scss']
 })
 export class NavigationMenuComponent {
-  public appName = 'Todo List Application';
+  public appName = 'Personal Task Manager';
 
   constructor() {}
-
-  public onCreateList(): void {
-
-  }
-
-  public query(): void {
-
-  }
 }

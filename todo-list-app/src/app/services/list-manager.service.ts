@@ -1,26 +1,117 @@
 import { Injectable } from '@angular/core';
+import { TaskList } from '../models/task-list.model';
+import { ListApiService } from './list-api.service';
+import { v4 as GenerateUuid } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListManagerService {
+  public taskLists: TaskList[];
+
+  private quickAddTemplate = {
+    id: '',
+    title: '',
+    description: '',
+    allTasksCompleted: false,
+    allTasksDue: null,
+    tasks: []
+  };
 
   // tslint:disable-next-line: variable-name
   private _isCreatingList: boolean;
+  private _isEditingList: boolean;
+  private _isViewingList: boolean;
 
-  constructor() {
+  private _listUnderEdit: TaskList;
+  private _listBeingViewed: TaskList;
 
+  constructor(private _listApiService: ListApiService) {
+    this._listApiService.fetchAllLists$().subscribe((lists) => {
+      if (lists) {
+        this.taskLists = lists;
+      }
+    });
+  }
+
+  public get isEditingList(): boolean {
+    return this._isEditingList;
   }
 
   public get isCreatingList(): boolean {
     return this._isCreatingList;
   }
 
-  public createList(listData: any): void {
-    // Push list to state store
+  public get isViewingList(): boolean {
+    return this._isViewingList;
+  }
+
+  public get listUnderEdit(): TaskList {
+    return this._listUnderEdit;
+  }
+
+  public get listBeingViewed(): TaskList {
+    return this._listBeingViewed;
+  }
+
+  public deleteList(listData: TaskList): void {
+    const filteredLists = this.taskLists.filter(list => list.id !== listData.id);
+    this.taskLists = filteredLists;
+  }
+
+  public createList(listData: TaskList): void {
+    this.taskLists.push(listData);
+  }
+
+  public quickCreateList(name: string) {
+    const newList: any = {};
+    Object.assign(newList, this.quickAddTemplate);
+
+    // Populate with name and new id
+    newList.id = GenerateUuid();
+    newList.title = name;
+
+    // Push to db
+    this.taskLists.push(newList);
   }
 
   public cancelCreateState() {
     this._isCreatingList = false;
+  }
+
+  public getCompletedTaskCount(list: TaskList): number {
+    return list.tasks.filter(task => task.isComplete).length;
+  }
+
+  public getTaskCount(list: TaskList): number {
+    return list.tasks.length;
+  }
+
+  public doesListExistWithName(name: string): boolean {
+    return !!this.taskLists.find(list => list.title === name);
+  }
+
+  public beginCreateList(): void {
+    this._isCreatingList = true;
+  }
+
+  public beginViewingList(list: TaskList): void {
+    this._isViewingList = true;
+    this._listBeingViewed = list;
+  }
+
+  public beginEditingList(list: TaskList): void {
+    this._isEditingList = true;
+    this._listUnderEdit = list;
+  }
+
+  public cancelEditingList(): void {
+    this._listUnderEdit = undefined;
+    this._isEditingList = false;
+  }
+
+  public stopViewingList(): void {
+    this._isViewingList = false;
+    this._listBeingViewed = undefined;
   }
 }
