@@ -8,8 +8,6 @@ export interface Task {
   description: string;
   priority: TaskPriority;
   isComplete: boolean;
-  dateAdded: string;
   dateDue: string;
   dateCompleted: string;
-  timeCompleted: string;
 }

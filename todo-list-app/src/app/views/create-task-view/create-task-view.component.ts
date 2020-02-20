@@ -4,6 +4,7 @@ import { v4 as GenerateUuid } from 'uuid';
 import { TaskPriority } from 'src/app/enumerations/task-priority';
 import { TaskManagerService } from 'src/app/services/task-manager.service';
 import { GetTodaysDate } from 'src/app/shared/utilities';
+import { ListManagerService } from 'src/app/services/list-manager.service';
 
 
 @Component({
@@ -17,13 +18,13 @@ export class CreateTaskViewComponent {
   @Input() public parentListId: string;
 
   public priorities = TaskPriority;
-  public taskData: FormGroup;
-  public expanded = true;
-  public readonly minDate = GetTodaysDate();
+  public taskDataFormGroup: FormGroup;
+  public readonly minDate = new Date(GetTodaysDate());
 
   // tslint:disable-next-line: variable-name
-  constructor(private _taskManagerService: TaskManagerService) {
-    this.taskData = new FormGroup ({
+  constructor(private _taskManager: TaskManagerService,
+              private _listManager: ListManagerService) {
+    this.taskDataFormGroup = new FormGroup ({
       title: new FormControl(''),
       description: new FormControl(''),
       priority: new FormControl(),
@@ -32,27 +33,20 @@ export class CreateTaskViewComponent {
   }
 
   public canCreateTask() {
-    return this.taskData.valid;
+    const name = this.taskDataFormGroup.controls.title.value;
+    return this.taskDataFormGroup.valid && !this._listManager.doesTaskNameExistOnListBeingViewed(name);
+  }
+
+  public onCreate() {
+    const taskData = this.taskDataFormGroup.value;
+    if (taskData.dateDue) {
+      taskData.dateDue = taskData.dateDue.toLocaleDateString();
+    }
+
+    this._taskManager.createTask(taskData);
   }
 
   public onCancelCreate() {
-    // _taskManagerService.cancelCreateState();
-  }
-
-  private createObjectFromData() {
-    const taskData = this.taskData.value;
-
-    return {
-      parentListId: this.parentListId,
-      id: GenerateUuid(),
-      title: taskData.title,
-      description: taskData.description,
-      priority: taskData.priority,
-      isComplete: false,
-      dateAdded: GetTodaysDate(),
-      dateDue: taskData.dateDue,
-      dateCompleted: undefined,
-      timeCompleted: undefined
-    };
+    this._taskManager.cancelCreateTask();
   }
 }

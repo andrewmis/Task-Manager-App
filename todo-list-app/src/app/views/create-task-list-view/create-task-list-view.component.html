@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title class="font-weight-normal">Create a New List</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="listData">
+    <form [formGroup]="listDataFormGroup">
       <div class="fields">
         <!-- Title -->
         <mat-form-field appearance="fill">
@@ -27,9 +27,9 @@
           <mat-label>Task Due Date</mat-label>
           <input
             matInput
-            [min]="minDate"
+            [min]="minDueDate"
             [matDatepicker]="picker"
-            formControlName="allTasksDue">
+            formControlName="allTasksDueDate">
           <mat-datepicker-toggle
             matSuffix
             [for]="picker">

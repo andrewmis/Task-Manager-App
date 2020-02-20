@@ -47,7 +47,7 @@
         </mat-checkbox>
       </span>
       <div>
-        <!-- Edit Toggle -->
+        <!-- Edit Button -->
         <button
           mat-icon-button
           class="align-self-center"
@@ -128,6 +128,7 @@
           <!-- Edit button -->
           <button
             mat-icon-button
+            (click)="onEditTask(task)"
             [disabled]="task.isComplete"
             class="align-self-center"
             matTooltip="Edit this task">

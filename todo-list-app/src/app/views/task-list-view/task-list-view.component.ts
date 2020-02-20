@@ -53,9 +53,8 @@ export class TaskListViewComponent implements OnInit {
 
     if (newIsComplete) {
       taskToUpdate.dateCompleted = GetTodaysDate();
-      taskToUpdate.timeCompleted = GetCurrentTime();
     }
-
+    this.checkIfListIsComplete();
   }
 
   public onReorderTask(event) {
@@ -68,6 +67,10 @@ export class TaskListViewComponent implements OnInit {
 
   public onEditList(): void {
     this._listManager.beginEditingList(this.listData);
+  }
+
+  public onEditTask(task: Task): void {
+    this._taskManager.beginEditingTask(task);
   }
 
   public onDeleteTask(taskId: string): void {
@@ -89,7 +92,8 @@ export class TaskListViewComponent implements OnInit {
 
   public onDetailedAddTask(event): void {
     event.preventDefault();
-    // Create new task with detailed view
+
+    this._taskManager.beginCreateTask();
   }
 
   public onToggleFilter(event): void {
@@ -178,6 +182,18 @@ export class TaskListViewComponent implements OnInit {
       this.tasks = this.listDataCopy.tasks.filter(task => !task.isComplete);
     } else {
       this.tasks = this.listDataCopy.tasks;
+    }
+  }
+
+  private checkIfListIsComplete(): void {
+    const incompleteTasks = this.tasks.filter(task => !task.isComplete);
+
+    if (incompleteTasks.length < 1) {
+      this.listData.allTasksCompleted = true;
+      this.listData.allTasksCompletedDate = GetTodaysDate();
+    } else {
+      this.listData.allTasksCompleted = false;
+      this.listData.allTasksCompletedDate = undefined;
     }
   }
 }

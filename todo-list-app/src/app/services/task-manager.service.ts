@@ -15,10 +15,8 @@ export class TaskManagerService {
     description: '',
     priority: null,
     isComplete: false,
-    dateAdded: null,
     dateDue: null,
-    dateCompleted: null,
-    timeCompleted: null
+    dateCompleted: null
   };
 
   // tslint:disable-next-line: variable-name
@@ -55,5 +53,60 @@ export class TaskManagerService {
 
     // Push to db
     this._listManager.listBeingViewed.tasks.push(newTask);
+  }
+
+  public createTask(taskData: Task): void {
+    const newTask: any = {};
+    Object.assign(newTask, this.quickAddTemplate);
+
+    newTask.parentListId = this._listManager.listBeingViewed.id;
+    newTask.id = GenerateUuid();
+    newTask.title = taskData.title;
+    newTask.description = taskData.description;
+    newTask.priority = taskData.priority;
+    newTask.dateDue = taskData.dateDue;
+
+    this._listManager.listBeingViewed.tasks.push(newTask);
+    this.stopCreatingTask();
+  }
+
+  public beginCreateTask(): void {
+    this.cancelEditingTask();
+    this._isCreatingTask = true;
+  }
+
+  public beginEditingTask(task: Task): void {
+    this.cancelCreateTask();
+
+    this._isEditingTask = true;
+    this._taskUnderEdit = task;
+  }
+
+  public saveEditsToList(edits: Task): void {
+    // Save edits
+    this._taskUnderEdit.title = edits.title;
+    this._taskUnderEdit.description = edits.description;
+    this._taskUnderEdit.priority = edits.priority;
+    this._taskUnderEdit.dateDue = edits.dateDue;
+
+    // Switch back to static view
+    this.stopEditingTask();
+  }
+
+  public cancelEditingTask(): void {
+    this.stopEditingTask();
+  }
+
+  public cancelCreateTask(): void {
+    this.stopCreatingTask();
+  }
+
+  private stopCreatingTask(): void {
+    this._isCreatingTask = false;
+  }
+
+  private stopEditingTask(): void {
+    this._taskUnderEdit = undefined;
+    this._isEditingTask = false;
   }
 }

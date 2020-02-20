@@ -13,20 +13,18 @@
     <ng-container *ngIf="inListEditState">
       <edit-task-list-view class="window"></edit-task-list-view>
     </ng-container>
-  </mat-grid-tile>
-
-  <!-- Right Side -->
-  <mat-grid-tile>
     <!-- Create a new list -->
     <ng-container *ngIf="inListCreationState">
       <create-task-list-view class="window"></create-task-list-view>
     </ng-container>
+  </mat-grid-tile>
 
+  <!-- Right Side -->
+  <mat-grid-tile>
     <!-- Create a new detailed task -->
     <ng-container *ngIf="inTaskCreationState">
       <create-task-view class="window"></create-task-view>
     </ng-container>
-
     <!-- Edit a task -->
     <ng-container *ngIf="inTaskEditState">
       <edit-task-view class="window"></edit-task-view>

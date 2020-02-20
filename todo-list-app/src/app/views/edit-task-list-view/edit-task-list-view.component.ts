@@ -19,10 +19,10 @@ export class EditTaskListViewComponent implements OnInit {
   public title: string;
   public description: string;
   public allTaskCompleted: boolean;
-  public allTasksDue: Date;
+  public allTasksDueDate: Date;
   public tasks: Task[];
 
-  public minDate = GetTodaysDate();
+  public minDate = new Date(GetTodaysDate());
 
   public listFields: FormGroup;
 
@@ -38,22 +38,31 @@ export class EditTaskListViewComponent implements OnInit {
     this.title = copyOfList.title;
     this.description = copyOfList.description;
     this.allTaskCompleted = copyOfList.allTaskCompleted;
-    this.allTasksDue = copyOfList.allTasksDue;
+    this.allTasksDueDate = copyOfList.allTasksDueDate;
     this.tasks = copyOfList.tasks;
 
     this.listFields = new FormGroup ({
       title: new FormControl(this.title),
       description: new FormControl(this.description),
-      allTasksDueDate: new FormControl(this.allTasksDue)
+      allTasksDueDate: new FormControl(this.allTasksDueDate)
     });
   }
 
   public canSaveList(): boolean {
-    return this.listFields.valid && this.listFields.dirty;
+    const name = this.listFields.controls.title.value;
+    let nameIsUnique = true;
+
+    if (name !== this.title && this._listManager.doesListExistWithName(name)) {
+      nameIsUnique = false;
+    }
+    return this.listFields.valid && nameIsUnique;
   }
 
   public onSave(): void {
+    const edits = this.listFields.value;
+    edits.allTasksDueDate = edits.allTasksDueDate.toLocaleDateString();
 
+    this._listManager.saveEditsToList(edits);
   }
 
   public onCancelEdit(): void {

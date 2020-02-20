@@ -16,7 +16,7 @@ export class ListManagerService {
     description: '',
     dateCreate: null,
     allTasksCompleted: false,
-    allTasksDue: null,
+    allTasksDueDate: null,
     tasks: []
   };
 
@@ -69,7 +69,15 @@ export class ListManagerService {
   }
 
   public createList(listData: TaskList): void {
-    this.taskLists.push(listData);
+    const newList: any = {};
+    Object.assign(newList, this.quickAddTemplate);
+    newList.id = GenerateUuid();
+    newList.title = listData.title;
+    newList.description = listData.description;
+    newList.allTasksDueDate = listData.allTasksDueDate;
+
+    this.taskLists.push(newList);
+    this.endCreateList();
   }
 
   public quickCreateList(name: string) {
@@ -109,6 +117,10 @@ export class ListManagerService {
     this._isCreatingList = true;
   }
 
+  public endCreateList(): void {
+    this._isCreatingList = false;
+  }
+
   public beginViewingList(list: TaskList): void {
     this._isViewingList = true;
     this._listBeingViewed = list;
@@ -120,8 +132,11 @@ export class ListManagerService {
     this._listUnderEdit = list;
   }
 
-  public saveEditsToList(): void {
+  public saveEditsToList(edits: TaskList): void {
     // Save edits
+    this.listUnderEdit.title = edits.title;
+    this.listUnderEdit.description = edits.description;
+    this.listUnderEdit.allTasksDueDate = edits.allTasksDueDate;
 
     // Switch back to static view
     this.stopEditingList();

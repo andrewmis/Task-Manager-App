@@ -6,6 +6,7 @@ export interface TaskList {
   description: string;
   dateCreated: string;
   allTasksCompleted: boolean;
-  allTasksDue: string;
+  allTasksCompletedDate: string;
+  allTasksDueDate: string;
   tasks: Task[];
 }
