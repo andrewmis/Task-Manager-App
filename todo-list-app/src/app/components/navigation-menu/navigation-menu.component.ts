@@ -15,8 +15,10 @@ export class NavigationMenuComponent {
               private _listManager: ListManagerService) {}
 
   public onSaveData(): void {
-    const toSave: any = {};
-    toSave['saved-lists'] = this._listManager.taskLists;
+    const saveData = this._listManager.taskLists;
+    const toSave: any = {
+      'saved-lists': saveData
+    };
 
     if (!toSave) {
       return alert('There are no lists to be saved.');

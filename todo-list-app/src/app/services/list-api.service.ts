@@ -12,7 +12,6 @@ const SAVED_LISTS = 'saved-lists';
 })
 export class ListApiService {
 
-
   // tslint:disable-next-line: variable-name
   constructor(private _http: HttpClient) {}
 

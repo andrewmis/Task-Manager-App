@@ -51,8 +51,7 @@ export class TaskManagerService {
     newTask.id = GenerateUuid();
     newTask.title = name;
 
-    // Push to db
-    this._listManager.listBeingViewed.tasks.push(newTask);
+    this.pushTaskToList(newTask);
   }
 
   public createTask(taskData: Task): void {
@@ -66,8 +65,14 @@ export class TaskManagerService {
     newTask.priority = taskData.priority;
     newTask.dateDue = taskData.dateDue;
 
-    this._listManager.listBeingViewed.tasks.push(newTask);
+    this.pushTaskToList(newTask);
     this.stopCreatingTask();
+  }
+
+  public deleteTask(taskId: string): void {
+    const listToRemoveFrom = this._listManager.listBeingViewed;
+    const filteredTasks = listToRemoveFrom.tasks.filter(task => task.id !== taskId);
+    listToRemoveFrom.tasks = filteredTasks;
   }
 
   public beginCreateTask(): void {
@@ -99,6 +104,11 @@ export class TaskManagerService {
 
   public cancelCreateTask(): void {
     this.stopCreatingTask();
+  }
+
+  private pushTaskToList(task: Task): void {
+    this._listManager.listBeingViewed.tasks.push(task);
+    this._listManager.checkIfListIsComplete();
   }
 
   private stopCreatingTask(): void {

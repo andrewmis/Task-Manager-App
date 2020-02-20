@@ -1,3 +1,9 @@
+$card-padding: 2rem;
+
+mat-card {
+  max-width: calc(500px - #{$card-padding});
+}
+
 .align-right {
   text-align: right;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ListManagerService } from 'src/app/services/list-manager.service';
 import { TaskList } from 'src/app/models/task-list.model';
@@ -6,21 +6,18 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'created-task-lists-view',
-  templateUrl: './created-task-lists-view.component.html',
-  styleUrls: ['./created-task-lists-view.component.scss']
+  selector: 'all-task-lists-view',
+  templateUrl: './all-task-lists-view.component.html',
+  styleUrls: ['./all-task-lists-view.component.scss']
 })
-export class CreatedTaskListsViewComponent {
+export class AllTaskListsViewComponent {
 
   public isReordering = false;
   public isDeleting = false;
   public quickAddFormGroup: FormGroup;
 
-  // private uniqueNameValidator: Function;
-
   // tslint:disable-next-line: variable-name
   constructor(private _listManager: ListManagerService) {
-    // this.uniqueNameValidator = this.nameValidator(this._listManager);
     this.quickAddFormGroup = new FormGroup({
       name: new FormControl()
     });
@@ -46,12 +43,25 @@ export class CreatedTaskListsViewComponent {
     return this.isReordering ? 'Finish reordering tasks' : 'Reorder tasks';
   }
 
+  public get hasList(): boolean {
+    return this.taskLists.length > 0;
+  }
+
+  public get hasMultipleLists(): boolean {
+    return this.taskLists.length > 1;
+  }
+
   public getCompletedTaskCount(list: TaskList): number {
     return this._listManager.getCompletedTaskCount(list);
   }
 
   public getTaskCount(list: TaskList): number {
     return this._listManager.getTaskCount(list);
+  }
+
+  public toggleAllTasksInList(event, listId: string): void {
+    const newCompleteValue = event.checked;
+    this._listManager.toggleAllTasks(listId, newCompleteValue);
   }
 
   public onToggleDeleteMode(): void {
@@ -73,7 +83,7 @@ export class CreatedTaskListsViewComponent {
   public onQuickAddTaskList(): void {
     const listName = this.quickAddFormGroup.controls.name.value;
 
-    if (this.quickAddFormGroup.valid && !this._listManager.doesListExistWithName(listName)) {
+    if (listName && !this._listManager.doesListExistWithName(listName)) {
       // Create new task with name
       this._listManager.quickCreateList(listName);
       // Clear form
@@ -91,29 +101,16 @@ export class CreatedTaskListsViewComponent {
     const prompt = 'Are you sure you want to delete this list?' +
                    '\nAll of the tasks will also be deleted.';
 
-    if (confirm(prompt)) {
-      this._listManager.deleteList(list);
+    if (!confirm(prompt)) {
+      return;
+    }
+
+    // Delete list
+    this._listManager.deleteList(list);
+
+    // Check if should exit delete mode
+    if (!this.hasList) {
+      this.onToggleDeleteMode();
     }
   }
-
-  // private validateName(control: FormControl) {
-  //   // return this.uniqueNameValidator(control);
-  //   return (control: FormControl) => {
-  //     if (!this._listManager.doesListExistWithName(control.value)) {
-  //       return;
-  //     } else {
-  //       return new Error('A list already exists with that name.');
-  //     }
-  //   };
-  // }
-
-  // private nameValidator(listService: ListManagerService) {
-  //   return (control: FormControl): Error | null => {
-  //     if (!listService.doesListExistWithName(control.value)) {
-  //       return;
-  //     } else {
-  //       return new Error('A list already exists with that name.');
-  //     }
-  //   }
-  // }
 }

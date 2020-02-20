@@ -16,10 +16,9 @@ export class HomeViewComponent {
               private _taskManager: TaskManagerService) {}
 
   public get inDefaultState(): boolean {
-    const inListState = this.inListEditState || this.inListCreationState || this.inListViewState;
-    const inTaskState = this.inTaskEditState || this.inTaskCreationState;
-
-    return !inListState && !inTaskState;
+    return !(this.inListEditState ||
+           this.inListCreationState ||
+           this.inListViewState);
   }
 
   public get inListCreationState(): boolean {

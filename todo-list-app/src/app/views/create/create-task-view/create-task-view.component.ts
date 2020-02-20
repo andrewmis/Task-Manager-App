@@ -15,8 +15,7 @@ import { ListManagerService } from 'src/app/services/list-manager.service';
 })
 export class CreateTaskViewComponent {
 
-  @Input() public parentListId: string;
-
+  public parentName: string;
   public priorities = TaskPriority;
   public taskDataFormGroup: FormGroup;
   public readonly minDate = new Date(GetTodaysDate());
@@ -30,6 +29,7 @@ export class CreateTaskViewComponent {
       priority: new FormControl(),
       dateDue: new FormControl()
     });
+    this.parentName = this._listManager.listBeingViewed.title;
   }
 
   public canCreateTask() {

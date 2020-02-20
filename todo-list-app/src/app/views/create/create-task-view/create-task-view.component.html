@@ -1,5 +1,6 @@
 <mat-card>
-  <mat-card-title class="font-weight-normal">{{ title }}</mat-card-title>
+    <mat-card-title class="font-weight-normal">Create a Task</mat-card-title>
+    <mat-card-subtitle>{{ parentName }}</mat-card-subtitle>
   <mat-card-content>
     <form [formGroup]="taskDataFormGroup">
       <div class="fields">
@@ -10,7 +11,7 @@
             matInput
             required
             formControlName="title"
-            placeholder="My To-do List">
+            placeholder="My Task">
         </mat-form-field>
         <br>
         <!-- Description -->
@@ -56,14 +57,14 @@
         <button
           class="margin-right-10px"
           mat-raised-button
-          (click)="onCancelEdit()">
+          (click)="onCancelCreate()">
           Cancel
         </button>
         <button
           mat-raised-button
-          [disabled]="!canSaveTask()"
-          (click)="onSaveEdits()">
-          Save
+          [disabled]="!canCreateTask()"
+          (click)="onCreate()">
+          Create
         </button>
       </div>
     </form>

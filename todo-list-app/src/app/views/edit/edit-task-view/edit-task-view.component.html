@@ -1,8 +1,7 @@
 <mat-card>
-  <mat-card-title class="font-weight-normal">{{ title }}</mat-card-title>
-  <mat-card-subtitle>{{ id }}</mat-card-subtitle>
+  <mat-card-title class="font-weight-normal">Edit Task</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="listFields">
+    <form [formGroup]="taskDataFormGroup">
       <div class="fields">
         <!-- Title -->
         <mat-form-field appearance="fill">
@@ -23,14 +22,27 @@
             placeholder="Ex: My grocery list for next week."></textarea>
         </mat-form-field>
         <br>
+        <!-- Priority -->
+        <mat-form-field
+          appearance="fill">
+          <mat-label>Priority</mat-label>
+          <mat-select
+            required
+            formControlName="priority">
+            <mat-option *ngFor="let priority of priorities | keyvalue" [value]="priority.value">
+              {{ priority.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
         <!-- Date due -->
         <mat-form-field appearance="fill">
-          <mat-label>All Tasks Due Date</mat-label>
+          <mat-label>Task Due Date</mat-label>
           <input
             matInput
             [min]="minDate"
             [matDatepicker]="picker"
-            formControlName="allTasksDueDate">
+            formControlName="dateDue">
           <mat-datepicker-toggle
             matSuffix
             [for]="picker">
@@ -49,8 +61,8 @@
         </button>
         <button
           mat-raised-button
-          [disabled]="!canSaveList()"
-          (click)="onSave()">
+          [disabled]="!canSaveTask()"
+          (click)="onSaveEdits()">
           Save
         </button>
       </div>

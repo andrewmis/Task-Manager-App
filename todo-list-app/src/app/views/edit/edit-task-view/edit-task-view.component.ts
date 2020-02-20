@@ -32,11 +32,12 @@ export class EditTaskViewComponent implements OnInit {
     this.title = this.taskData.title;
     this.id = this.taskData.id;
 
+    const formattedDate = this.taskData.dateDue ? new Date(this.taskData.dateDue) : '';
     this.taskDataFormGroup = new FormGroup ({
       title: new FormControl(this.taskData.title),
       description: new FormControl(this.taskData.description),
       priority: new FormControl(this.taskData.priority),
-      dateDue: new FormControl(this.taskData.dateDue)
+      dateDue: new FormControl(formattedDate)
     });
   }
 

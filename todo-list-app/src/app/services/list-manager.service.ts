@@ -3,6 +3,7 @@ import { TaskList } from '../models/task-list.model';
 import { ListApiService } from './list-api.service';
 import { v4 as GenerateUuid } from 'uuid';
 import { GetTodaysDate } from '../shared/utilities';
+import { TaskManagerService } from './task-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -89,7 +90,6 @@ export class ListManagerService {
     newList.title = name;
     newList.dateCreated = GetTodaysDate();
 
-    // Push to db
     this.taskLists.push(newList);
   }
 
@@ -155,6 +155,25 @@ export class ListManagerService {
   public stopViewingList(): void {
     this._isViewingList = false;
     this._listBeingViewed = undefined;
+  }
+
+  public toggleAllTasks(listId, newCompleteValue): void {
+    const listToToggle = this.taskLists.find(list => list.id === listId);
+    listToToggle.tasks.forEach(task => task.isComplete = newCompleteValue);
+    listToToggle.allTasksCompleted = newCompleteValue;
+  }
+
+  public checkIfListIsComplete(list?: TaskList): void {
+    const listToCheck = list ? list : this.listBeingViewed;
+    const incompleteTasks = listToCheck.tasks.filter(task => !task.isComplete);
+
+    if (incompleteTasks.length < 1) {
+      listToCheck.allTasksCompleted = true;
+      listToCheck.allTasksCompletedDate = GetTodaysDate();
+    } else {
+      listToCheck.allTasksCompleted = false;
+      listToCheck.allTasksCompletedDate = undefined;
+    }
   }
 
   private resetStates() {

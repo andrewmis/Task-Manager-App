@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskList } from 'src/app/models/task-list.model';
 import { Task } from 'src/app/models/task.model';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -19,7 +19,7 @@ export class EditTaskListViewComponent implements OnInit {
   public title: string;
   public description: string;
   public allTaskCompleted: boolean;
-  public allTasksDueDate: Date;
+  public allTasksDueDate: string;
   public tasks: Task[];
 
   public minDate = new Date(GetTodaysDate());
@@ -31,20 +31,18 @@ export class EditTaskListViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    const copyOfList: any = {};
-    Object.assign(copyOfList, this.listData);
+    this.id = this.listData.id;
+    this.title = this.listData.title;
+    this.description = this.listData.description;
+    this.allTaskCompleted = this.listData.allTasksCompleted;
+    this.allTasksDueDate = this.listData.allTasksDueDate;
+    this.tasks = this.listData.tasks;
 
-    this.id = copyOfList.id;
-    this.title = copyOfList.title;
-    this.description = copyOfList.description;
-    this.allTaskCompleted = copyOfList.allTaskCompleted;
-    this.allTasksDueDate = copyOfList.allTasksDueDate;
-    this.tasks = copyOfList.tasks;
-
+    const formattedDate = this.allTasksDueDate ? new Date(this.allTasksDueDate) : '';
     this.listFields = new FormGroup ({
       title: new FormControl(this.title),
       description: new FormControl(this.description),
-      allTasksDueDate: new FormControl(this.allTasksDueDate)
+      allTasksDueDate: new FormControl(formattedDate)
     });
   }
 
@@ -60,7 +58,9 @@ export class EditTaskListViewComponent implements OnInit {
 
   public onSave(): void {
     const edits = this.listFields.value;
-    edits.allTasksDueDate = edits.allTasksDueDate.toLocaleDateString();
+    if (edits.allTasksDueDate) {
+      edits.allTasksDueDate = edits.allTasksDueDate.toLocaleDateString();
+    }
 
     this._listManager.saveEditsToList(edits);
   }
