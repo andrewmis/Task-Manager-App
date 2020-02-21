@@ -1,1 +1,271 @@
-{"saved-lists":[{"id":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","title":"Grocery List","description":"The groceries I need for next week.","allTasksCompleted":false,"allTasksDueDate":"2/24/2020","tasks":[{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"d13ac63e-cc13-41b0-a585-d546fe2f7f95","title":"Apples","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"16f9afc4-2666-4973-93ab-003dc6f7e6ae","title":"Bananas","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/20/2020"},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"90408a85-84c4-4877-a1a0-19142dff3d43","title":"Rice","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"fd7e9db3-f5c6-4c0b-ac53-43bc4215e4f9","title":"Milk","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/20/2020"},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"a1d46c47-78ce-4904-ae8a-6499cd3999fa","title":"Eggs","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/20/2020"},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"6a0a96b0-5549-4786-88f9-cd3a07c3be76","title":"Bread","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/20/2020"},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"c695a1f9-1f55-4b1a-86da-8756648f264e","title":"Chicken","description":"","priority":"High","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"2d4223f3-4b04-489b-8029-ebb00d70b1f2","title":"Beans","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"fbc1be31-37eb-47af-8fcf-9369c56f5edc","title":"Steak","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/20/2020"},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"ba36fb9c-a30e-4031-b1ad-ec067570d27e","title":"Tortillas","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"884f50fc-2fcc-47cb-98cc-3162a5f4a4d9","title":"Paper Towels","description":"Need these ASAP!","priority":"High","isComplete":false,"dateDue":"2/21/2020","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"735eab27-8146-472b-8e3e-26bd70d36d23","title":"Avocados","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/20/2020"},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"30a2a25c-5ce4-4242-a2d1-c913d600ed62","title":"Plastic Bags","description":"","priority":"Medium","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"b0ae9534-6a05-4c8e-8b94-67a62a1eb269","title":"Bleach","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"de29c8bd-ea40-4bcb-8bc3-a36907029b57","id":"cd5ea995-08a6-49d9-b2ee-0167386829fb","title":"Detergent","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null}]},{"id":"7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95","title":"Homework","description":null,"allTasksCompleted":false,"allTasksDueDate":null,"tasks":[{"parentListId":"7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95","id":"23a86d8d-6818-467f-8558-0c0e0cfdaad3","title":"Biology","description":"","priority":"Low","isComplete":false,"dateDue":"","dateCompleted":null},{"parentListId":"7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95","id":"8f50d929-65d7-4ce6-b5d2-d4023832b959","title":"Math Test","description":"","priority":"High","isComplete":false,"dateDue":"2/24/2020","dateCompleted":null},{"parentListId":"7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95","id":"5a7debd4-d2d9-4944-a5a5-bfc0f69743e4","title":"Research Paper","description":"","priority":null,"isComplete":false,"dateDue":null,"dateCompleted":null},{"parentListId":"7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95","id":"46f9d3ee-8b9e-4624-b1ad-2e7db591de64","title":"History Quiz","description":"","priority":"Medium","isComplete":false,"dateDue":"2/26/2020","dateCompleted":null}]},{"id":"ff369513-571c-4495-8d2c-ca699dbbdfee","title":"Household Tasks","description":"","allTasksCompleted":false,"allTasksDueDate":"","tasks":[{"parentListId":"ff369513-571c-4495-8d2c-ca699dbbdfee","id":"b12f4e8a-8f2a-4b65-8ed6-bff885303c1d","title":"Sweep","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/21/2020"},{"parentListId":"ff369513-571c-4495-8d2c-ca699dbbdfee","id":"83a52c31-8c66-4a2b-b3d4-608b292d9b23","title":"Do dishes","description":"","priority":null,"isComplete":false,"dateDue":null,"dateCompleted":null},{"parentListId":"ff369513-571c-4495-8d2c-ca699dbbdfee","id":"192038a4-0806-4f3c-8332-e6a794c386da","title":"Fold laundry","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/21/2020"},{"parentListId":"ff369513-571c-4495-8d2c-ca699dbbdfee","id":"c39d0069-010b-4c95-96fe-e4d983f02fe7","title":"Vacuum","description":"","priority":null,"isComplete":true,"dateDue":null,"dateCompleted":"2/21/2020"},{"parentListId":"ff369513-571c-4495-8d2c-ca699dbbdfee","id":"cacce156-bc93-4806-8ede-0d2bd5e64b2e","title":"Clean fish tank","description":"","priority":"Medium","isComplete":false,"dateDue":"","dateCompleted":null}]}]}
+{
+  "saved-lists": [
+    {
+      "id": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+      "title": "Grocery List",
+      "description": "The groceries I need for next week.",
+      "allTasksCompleted": false,
+      "allTasksDueDate": "2/24/2020",
+      "tasks": [
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "d13ac63e-cc13-41b0-a585-d546fe2f7f95",
+          "title": "Apples",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "16f9afc4-2666-4973-93ab-003dc6f7e6ae",
+          "title": "Bananas",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/20/2020"
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "90408a85-84c4-4877-a1a0-19142dff3d43",
+          "title": "Rice",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "fd7e9db3-f5c6-4c0b-ac53-43bc4215e4f9",
+          "title": "Milk",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/20/2020"
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "a1d46c47-78ce-4904-ae8a-6499cd3999fa",
+          "title": "Eggs",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/20/2020"
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "6a0a96b0-5549-4786-88f9-cd3a07c3be76",
+          "title": "Bread",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/20/2020"
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "c695a1f9-1f55-4b1a-86da-8756648f264e",
+          "title": "Chicken",
+          "description": "",
+          "priority": "High",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "2d4223f3-4b04-489b-8029-ebb00d70b1f2",
+          "title": "Beans",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "fbc1be31-37eb-47af-8fcf-9369c56f5edc",
+          "title": "Steak",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/20/2020"
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "ba36fb9c-a30e-4031-b1ad-ec067570d27e",
+          "title": "Tortillas",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "884f50fc-2fcc-47cb-98cc-3162a5f4a4d9",
+          "title": "Paper Towels",
+          "description": "Need these ASAP!",
+          "priority": "High",
+          "isComplete": false,
+          "dateDue": "2/21/2020",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "735eab27-8146-472b-8e3e-26bd70d36d23",
+          "title": "Avocados",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/20/2020"
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "30a2a25c-5ce4-4242-a2d1-c913d600ed62",
+          "title": "Plastic Bags",
+          "description": "",
+          "priority": "Medium",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "b0ae9534-6a05-4c8e-8b94-67a62a1eb269",
+          "title": "Bleach",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "de29c8bd-ea40-4bcb-8bc3-a36907029b57",
+          "id": "cd5ea995-08a6-49d9-b2ee-0167386829fb",
+          "title": "Detergent",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        }
+      ]
+    },
+    {
+      "id": "7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95",
+      "title": "Homework",
+      "description": null,
+      "allTasksCompleted": false,
+      "allTasksDueDate": null,
+      "tasks": [
+        {
+          "parentListId": "7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95",
+          "id": "23a86d8d-6818-467f-8558-0c0e0cfdaad3",
+          "title": "Biology",
+          "description": "",
+          "priority": "Low",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95",
+          "id": "8f50d929-65d7-4ce6-b5d2-d4023832b959",
+          "title": "Math Test",
+          "description": "",
+          "priority": "High",
+          "isComplete": false,
+          "dateDue": "2/24/2020",
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95",
+          "id": "5a7debd4-d2d9-4944-a5a5-bfc0f69743e4",
+          "title": "Research Paper",
+          "description": "",
+          "priority": null,
+          "isComplete": false,
+          "dateDue": null,
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "7b6c2a12-9e8e-4f3f-8c1d-a9f0b46f8d95",
+          "id": "46f9d3ee-8b9e-4624-b1ad-2e7db591de64",
+          "title": "History Quiz",
+          "description": "",
+          "priority": "Medium",
+          "isComplete": false,
+          "dateDue": "2/26/2020",
+          "dateCompleted": null
+        }
+      ]
+    },
+    {
+      "id": "ff369513-571c-4495-8d2c-ca699dbbdfee",
+      "title": "Household Tasks",
+      "description": "",
+      "allTasksCompleted": false,
+      "allTasksDueDate": "",
+      "tasks": [
+        {
+          "parentListId": "ff369513-571c-4495-8d2c-ca699dbbdfee",
+          "id": "b12f4e8a-8f2a-4b65-8ed6-bff885303c1d",
+          "title": "Sweep",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/21/2020"
+        },
+        {
+          "parentListId": "ff369513-571c-4495-8d2c-ca699dbbdfee",
+          "id": "83a52c31-8c66-4a2b-b3d4-608b292d9b23",
+          "title": "Do dishes",
+          "description": "",
+          "priority": null,
+          "isComplete": false,
+          "dateDue": null,
+          "dateCompleted": null
+        },
+        {
+          "parentListId": "ff369513-571c-4495-8d2c-ca699dbbdfee",
+          "id": "192038a4-0806-4f3c-8332-e6a794c386da",
+          "title": "Fold laundry",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/21/2020"
+        },
+        {
+          "parentListId": "ff369513-571c-4495-8d2c-ca699dbbdfee",
+          "id": "c39d0069-010b-4c95-96fe-e4d983f02fe7",
+          "title": "Vacuum",
+          "description": "",
+          "priority": null,
+          "isComplete": true,
+          "dateDue": null,
+          "dateCompleted": "2/21/2020"
+        },
+        {
+          "parentListId": "ff369513-571c-4495-8d2c-ca699dbbdfee",
+          "id": "cacce156-bc93-4806-8ede-0d2bd5e64b2e",
+          "title": "Clean fish tank",
+          "description": "",
+          "priority": "Medium",
+          "isComplete": false,
+          "dateDue": "",
+          "dateCompleted": null
+        }
+      ]
+    }
+  ]
+}
