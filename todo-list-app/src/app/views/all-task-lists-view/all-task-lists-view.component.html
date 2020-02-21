@@ -1,55 +1,153 @@
 <mat-card>
   <div class="full-height">
-    <!-- Static Height Heading -->
-    <div>
-      <!-- Card Header -->
-      <div class="card-header-container">
-        <!-- Task List Title -->
-        <mat-card-title>
-          All Task Lists
-        </mat-card-title>
-      </div>
-      <mat-divider></mat-divider>
-      <div class="flex-space-between padding-10px">
-        <div class="align-self-center">
-          <!-- Filter placeholder -->
-          Filter options placeholder...
-        </div>
-        <div>
-          <!-- Delete Task Lists Button -->
-          <button
-            mat-icon-button
-            [disabled]="isReordering || !hasList"
-            class="align-self-center"
-            (click)="onToggleDeleteMode()"
-            [matTooltip]="deleteTooltip">
-            <mat-icon>{{ deleteIcon }}</mat-icon>
-          </button>
-          <!-- Reorder Task Lists Button -->
-          <button
-            mat-icon-button
-            [disabled]="isDeleting || !hasMultipleLists"
-            class="align-self-center"
-            (click)="onToggleReorderMode()"
-            [matTooltip]="reorderTooltip">
-            <mat-icon>{{ reorderIcon }}</mat-icon>
-          </button>
-        </div>
-      </div>
-      <mat-divider></mat-divider>
-    </div>
+    <!-- Card Header -->
+    <ng-container *ngTemplateOutlet="cardHeader"></ng-container>
+    <mat-divider></mat-divider>
+
     <!-- Card Content -->
     <div class="card-content">
       <ng-container *ngIf="hasList then showAllLists; else showNoLists"></ng-container>
     </div>
 
   </div>
+
   <!-- Quick Add Bar -->
+  <ng-container *ngTemplateOutlet="quickAddListBar"></ng-container>
+</mat-card>
+
+<!-- NG Templates -->
+
+<!-- Card Header -->
+<ng-template #cardHeader>
+  <div class="card-header-container">
+    <!-- Task List Title -->
+    <mat-card-title>
+      All Task Lists
+    </mat-card-title>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="flex-space-between padding-10px">
+    <div class="align-self-center">
+      <!-- Filter placeholder -->
+      Filter options placeholder...
+    </div>
+    <div>
+      <!-- Delete Task Lists Button -->
+      <button
+        mat-icon-button
+        [disabled]="isReordering || !hasList"
+        class="align-self-center"
+        (click)="onToggleDeleteMode()"
+        [matTooltip]="deleteTooltip">
+        <mat-icon>{{ deleteIcon }}</mat-icon>
+      </button>
+      <!-- Reorder Task Lists Button -->
+      <button
+        mat-icon-button
+        [disabled]="isDeleting || !hasMultipleLists"
+        class="align-self-center"
+        (click)="onToggleReorderMode()"
+        [matTooltip]="reorderTooltip">
+        <mat-icon>{{ reorderIcon }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- No lists to show -->
+<ng-template #showNoLists>
+  <div class="no-lists-view" fxLayout="column" fxLayoutAlign="center center">
+    <h3 class="font-weight-normal">No lists exist.</h3>
+    <span>Create a new list to begin.</span>
+  </div>
+</ng-template>
+
+<!-- Show all lists -->
+<ng-template #showAllLists>
+  <mat-action-list
+  cdkDropList
+  [cdkDropListData]="taskLists"
+  (cdkDropListDropped)="onReorderTaskList($event)">
+
+  <!-- Wrap each list with a draggable component -->
+    <div *ngFor="let taskList of taskLists"
+      cdkDrag
+      class="flex"
+      [cdkDragDisabled]="!isReordering">
+      <button mat-list-item
+        [disabled]="isDeleting || isReordering"
+        [class.reorder-width]="isReordering"
+        [class.edit-width]="isDeleting"
+        [matTooltip]="taskList.description"
+        (click)="onSelectList(taskList)">
+
+        <!-- Task List Info -->
+        <div class="flex-space-between full-width">
+          <!-- Task List Title -->
+          <h4
+            mat-line
+            class="font-weight-normal"
+            [title]="taskList.description"
+            [ngClass]="{strike: taskList.allTasksCompleted}">
+            {{ taskList.title }}
+          </h4>
+
+          <div class="flex">
+            <!-- Task List Date (Due or Completion) -->
+            <ng-container *ngIf="taskList.allTasksCompleted; else allTasksDueDate;">
+              <h5 class="margin-right-10px no-wrap">Completed</h5>
+            </ng-container>
+            <ng-template #allTasksDueDate>
+              <h5 [matTooltip]="taskList.allTasksDueDate" class="margin-right-10px">{{ taskList.allTasksDueDate ? 'DUE DATE' : '' }}</h5>
+            </ng-template>
+            <!-- Task List # of Items Completed -->
+            <h4 class="font-weight-normal task-count">({{ getCompletedTaskCount(taskList) }}/{{ getTaskCount(taskList)}})</h4>
+          </div>
+        </div>
+      </button>
+
+      <!-- Toggle All Tasks in List -->
+      <mat-checkbox
+        class="align-self-center"
+        [disabled]="isDeleting || isReordering"
+        (change)="toggleAllTasksInList($event, taskList.id)"
+        [checked]="taskList.allTasksCompleted">
+      </mat-checkbox>
+
+      <!-- Reorder State Options -->
+      <!-- Drag handle -->
+      <span
+        cdkDragHandle
+        *ngIf="isReordering"
+        class="align-self-center"
+        matTooltip="Drag to reorder this task">
+        <mat-icon>
+          drag_indicator
+        </mat-icon>
+      </span>
+
+      <!-- Edit State Options -->
+      <ng-container *ngIf="isDeleting">
+        <!-- Delete Button -->
+        <button mat-icon-button
+          class="align-self-center"
+          (click)="onDeleteTaskList(taskList)"
+          matTooltip="Delete task list">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </mat-action-list>
+</ng-template>
+
+<!-- Quick Add List Bar -->
+<ng-template #quickAddListBar>
   <form
   class="flex"
-  (ngSubmit)="onQuickAddTaskList()"
-  [formGroup]="quickAddFormGroup">
+  [formGroup]="quickAddFormGroup"
+  (ngSubmit)="onQuickAddTaskList()">
     <mat-divider></mat-divider>
+
     <!-- Task Name -->
     <mat-form-field
     class="flex-grow"
@@ -60,6 +158,7 @@
         placeholder="My task list"
         formControlName="name">
     </mat-form-field>
+
     <!-- New Task List Buttons -->
     <div class="form-buttons">
       <!-- Quick Add -->
@@ -81,84 +180,4 @@
       </button>
     </div>
   </form>
-</mat-card>
-
-<!-- No lists to show -->
-<ng-template #showNoLists>
-  <div class="no-lists-view" fxLayout="column" fxLayoutAlign="center center">
-    <h3 class="font-weight-normal">No lists exist.</h3>
-    <span>Create a new list to begin.</span>
-  </div>
-</ng-template>
-
-<!-- Show all lists -->
-<ng-template #showAllLists>
-  <mat-action-list
-  cdkDropList
-  [cdkDropListData]="taskLists"
-  (cdkDropListDropped)="onReorderTaskList($event)">
-  <!-- Draggable list item wrapping each Task -->
-    <div
-      cdkDrag
-      class="flex"
-      [cdkDragDisabled]="!isReordering"
-      *ngFor="let taskList of taskLists">
-      <button mat-list-item
-        [disabled]="isDeleting || isReordering"
-        [class.reorder-width]="isReordering"
-        [class.edit-width]="isDeleting"
-        [matTooltip]="taskList.description"
-        (click)="onSelectList(taskList)">
-        <div class="flex-space-between full-width">
-          <!-- Task Title -->
-          <h4
-            mat-line
-            class="font-weight-normal"
-            [title]="taskList.description"
-            [ngClass]="{strike: taskList.allTasksCompleted}">
-            {{ taskList.title }}
-          </h4>
-          <div class="flex">
-            <!-- Task List Date (Due or Completion) -->
-            <ng-container *ngIf="taskList.allTasksCompleted; else allTasksDueDate;">
-              <h5 class="margin-right-10px no-wrap">Completed {{ taskList.allTasksCompletedDate }}</h5>
-            </ng-container>
-            <ng-template #allTasksDueDate>
-              <h5 class="font-weight-normal margin-right-10px">{{ taskList.allTasksDueDate }}</h5>
-            </ng-template>
-            <!-- Task List Items Completed -->
-            <h4 class="font-weight-normal task-count">({{ getCompletedTaskCount(taskList) }}/{{ getTaskCount(taskList)}})</h4>
-          </div>
-        </div>
-      </button>
-      <!-- Toggle All Tasks in List -->
-      <mat-checkbox
-        class="align-self-center"
-        [disabled]="isDeleting || isReordering"
-        (change)="toggleAllTasksInList($event, taskList.id)"
-        [checked]="taskList.allTasksCompleted">
-      </mat-checkbox>
-      <!-- Reorder State Options -->
-      <!-- Drag handle -->
-      <span
-        cdkDragHandle
-        *ngIf="isReordering"
-        class="align-self-center"
-        matTooltip="Drag to reorder this task">
-        <mat-icon>
-          drag_indicator
-        </mat-icon>
-      </span>
-      <!-- Edit State Options -->
-      <ng-container *ngIf="isDeleting">
-        <!-- Delete Button -->
-        <button mat-icon-button
-          class="align-self-center"
-          (click)="onDeleteTaskList(taskList)"
-          matTooltip="Delete task list">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </ng-container>
-    </div>
-  </mat-action-list>
 </ng-template>
