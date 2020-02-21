@@ -14,12 +14,20 @@ export class HomeViewComponent {
               private _taskManager: TaskManagerService) {}
 
   /**
-   * Check if a list is either being created, viewed, or edited.
+   * Check if a list is not being viewed.
    */
-  public get inDefaultState(): boolean {
-    return !(this.inListEditState ||
+  public get inShowAllListsState(): boolean {
+    return !this.inShowListState;
+  }
+
+  /**
+   * Check if either a task or list is being edited or created.
+   */
+  public get inEditOrCreationState(): boolean {
+    return this.inTaskEditState ||
+           this.inListEditState ||
            this.inListCreationState ||
-           this.inListViewState);
+           this.inTaskCreationState;
   }
 
   /**
@@ -39,7 +47,7 @@ export class HomeViewComponent {
   /**
    * Check if a list is being viewed.
    */
-  public get inListViewState(): boolean {
+  public get inShowListState(): boolean {
     return this._listManager.isViewingList;
   }
 
