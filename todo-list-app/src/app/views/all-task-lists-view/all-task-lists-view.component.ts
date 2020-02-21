@@ -125,10 +125,8 @@ export class AllTaskListsViewComponent {
 
   /**
    * On choosing to advance create, begin creating a list.
-   * @param event The event emitted when the form is submitted.
    */
-  public onDetailedAddTaskList(event): void {
-    event.preventDefault();
+  public onDetailedAddTaskList(): void {
     // Create new task with detailed view
     this._listManager.beginCreateList();
   }
