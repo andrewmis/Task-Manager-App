@@ -13,7 +13,6 @@ import { CreateTaskListViewComponent } from './views/create/create-task-list-vie
 import { HomeViewComponent } from './views/home-view/home-view.component';
 import { CoreModule } from './core/core.module';
 import { TaskListViewComponent } from './views/task-list-view/task-list-view.component';
-import { TaskViewComponent } from './views/task-view/task-view.component';
 import { AllTaskListsViewComponent } from './views/all-task-lists-view/all-task-lists-view.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { AllTaskListsViewComponent } from './views/all-task-lists-view/all-task-
     EditTaskListViewComponent,
     EditTaskViewComponent,
     TaskListViewComponent,
-    TaskViewComponent,
     AllTaskListsViewComponent,
   ],
   imports: [

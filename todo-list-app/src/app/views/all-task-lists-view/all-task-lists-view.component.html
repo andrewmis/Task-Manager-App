@@ -75,9 +75,9 @@
       class="flex"
       [cdkDragDisabled]="!isReordering">
       <button mat-list-item
-        [disabled]="isDeleting || isReordering"
-        [class.reorder-width]="isReordering"
-        [class.edit-width]="isDeleting"
+        [disabled]="isDeletingOrEditing"
+        [class.toggled-state-width]="isDeletingOrEditing"
+        [class.list-item-base-width]="!isDeletingOrEditing"
         [matTooltip]="taskList.description"
         (click)="onSelectList(taskList)">
 
@@ -86,7 +86,7 @@
           <!-- Task List Title -->
           <h4
             mat-line
-            class="font-weight-normal"
+            class="font-weight-normal title"
             [title]="taskList.description"
             [ngClass]="{strike: taskList.allTasksCompleted}">
             {{ taskList.title }}
@@ -95,10 +95,10 @@
           <div class="flex">
             <!-- Task List Date (Due or Completion) -->
             <ng-container *ngIf="taskList.allTasksCompleted; else allTasksDueDate;">
-              <h5 class="margin-right-10px no-wrap">Completed</h5>
+              <h5 class="margin-right-10px">Completed</h5>
             </ng-container>
             <ng-template #allTasksDueDate>
-              <h5 [matTooltip]="taskList.allTasksDueDate" class="margin-right-10px">{{ taskList.allTasksDueDate ? 'DUE DATE' : '' }}</h5>
+              <h5 [matTooltip]="taskList.allTasksDueDate" class="no-wrap margin-right-10px">{{ taskList.allTasksDueDate ? 'DUE DATE' : '' }}</h5>
             </ng-template>
             <!-- Task List # of Items Completed -->
             <h4 class="font-weight-normal task-count">({{ getCompletedTaskCount(taskList) }}/{{ getTaskCount(taskList)}})</h4>

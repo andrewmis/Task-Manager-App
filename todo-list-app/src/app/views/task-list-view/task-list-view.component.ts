@@ -17,6 +17,8 @@ export class TaskListViewComponent implements OnDestroy {
 
   public isEditing = false;
   public isReordering = false;
+
+  // Waiting on filter options renable
   // public isFilteringByComplete = false;
   // public isFilteringByIncomplete = false;
 
@@ -35,52 +37,146 @@ export class TaskListViewComponent implements OnDestroy {
     this._taskManager.cancelEditingTask();
   }
 
+  /**
+   * The data for the current list being viewed.
+   */
   public get listData(): TaskList {
     return this._listManager.listBeingViewed;
   }
+
+  /**
+   * The list's title property.
+   */
   public get title(): string {
     return this.listData.title;
   }
+
+  /**
+   * The list's description property.
+   */
   public get description(): string {
     return this.listData.description;
   }
+
+  /**
+   * The list's tasks collection.
+   */
   public get tasks(): Task[] {
     return this.listData.tasks;
   }
 
+  /**
+   * The list's due date for all tasks to be complete.
+   */
   public get allTasksDueDate(): string {
     return this.listData.allTasksDueDate;
   }
 
+  /**
+   * Gets the appropriate icon name based on the reorder state.
+   */
+  public get reorderIcon(): string {
+    return this.isReordering ? 'check' : 'reorder';
+  }
+
+  /**
+   * Gets the appropriate tooltip based on the reorder state.
+   */
+  public get reorderTooltip(): string {
+    return this.isReordering ? 'Finish reordering tasks' : 'Reorder tasks';
+  }
+
+  /**
+   * Gets the appropriate icon name based on the edit state.
+   */
+  public get editIcon(): string {
+    return this.isEditing ? 'check' : 'edit';
+  }
+
+  /**
+   * Gets the appropriate tooltip based on the edit state.
+   */
+  public get editTooltip(): string {
+    return this.isEditing ? 'Finish editing tasks' : 'Edit tasks';
+  }
+
+  /**
+   * Check if this list has multiple tasks.
+   */
+  public get hasMultipleTasks(): boolean {
+    return this.tasks.length > 1;
+  }
+
+  /**
+   * Check if this list has at least one task.
+   */
+  public get hasTasks(): boolean {
+    return this.tasks.length > 0;
+  }
+
+  /**
+   * Check if this list has at least one task and is being filtered.
+   */
+  public get shouldShowNoTasks(): boolean {
+    return !this.hasTasks; // && !this.isFiltering;
+  }
+
+  /**
+   * Toggles a task between complete/incomplete.
+   * @param event The event emitted when toggling a task.
+   */
   public toggleTask(event) {
+    // Get the event data
     const taskId = event.option.value;
     const newIsComplete = event.option.selected;
 
+    // Find the task with the corresponding id
     const taskToUpdate = this.tasks.find(task => task.id === taskId);
     taskToUpdate.isComplete = newIsComplete;
 
+    // If completing, update the completion date
     if (newIsComplete) {
       taskToUpdate.dateCompleted = GetTodaysDate();
     }
+
+    // Update the list's completion status
     this._listManager.checkIfListIsComplete();
   }
 
+  /**
+   * Update the list's task order on reordering a task.
+   * @param event The emitted reorder event.
+   */
   public onReorderTask(event) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
+  /**
+   * Toggles the list's edit state.
+   */
   public onToggleEdit(): void {
     this.isEditing = !this.isEditing;
   }
 
+  /**
+   * Puts the list into an editing state.
+   */
   public onEditList(): void {
     this._listManager.beginEditingList(this.listData);
   }
 
+  /**
+   * Puts the task into an edit state.
+   * @param task The task to begin editing.
+   */
   public onEditTask(task: Task): void {
     this._taskManager.beginEditingTask(task);
   }
 
+  /**
+   * Prompts the user before deleting the given task.
+   * @param taskId The task to delete.
+   */
   public onDeleteTask(taskId: string): void {
     // Confirm
     if (!confirm('Are you sure you want to delete this task?')) {
@@ -96,6 +192,9 @@ export class TaskListViewComponent implements OnDestroy {
     }
   }
 
+  /**
+   * On using the quick add, validate the input task name and create a task.
+   */
   public onQuickAddTask(): void {
     const taskName = this.quickAddFormGroup.controls.name.value;
 
@@ -109,44 +208,34 @@ export class TaskListViewComponent implements OnDestroy {
     }
   }
 
+  /**
+   * On choosing to advance create, begin creating a task.
+   * @param event The event emitted when the form is submitted.
+   */
   public onDetailedAddTask(event): void {
     event.preventDefault();
 
     this._taskManager.beginCreateTask();
   }
 
+  /**
+   * Toggle the ability to reorder lists.
+   */
   public onToggleReorder(): void {
     this.isReordering = !this.isReordering;
   }
 
+  /**
+   * Exit this list's viewing state and return to the All Lists page.
+   */
   public onStopViewingList(): void {
     this._listManager.stopViewingList();
   }
 
-  public get reorderIcon(): string {
-    return this.isReordering ? 'check' : 'reorder';
-  }
-
-  public get reorderTooltip(): string {
-    return this.isReordering ? 'Finish reordering tasks' : 'Reorder tasks';
-  }
-
-  public get editIcon(): string {
-    return this.isEditing ? 'check' : 'edit';
-  }
-
-  public get editTooltip(): string {
-    return this.isEditing ? 'Finish editing tasks' : 'Edit tasks';
-  }
-
-  public get hasMultipleTasks(): boolean {
-    return this.tasks.length > 1;
-  }
-
-  public get hasTasks(): boolean {
-    return this.tasks.length > 0;
-  }
-
+  /**
+   * Returns an icn name based on the given priority.
+   * @param priority The priority to get the icon of.
+   */
   public getTaskPriorityIcon(priority: TaskPriority): string {
     switch (priority) {
       case TaskPriority.High:
@@ -163,6 +252,10 @@ export class TaskListViewComponent implements OnDestroy {
     }
   }
 
+  /**
+   * Returns a color based on the given priority.
+   * @param priority The priority to get the color of.
+   */
   public getTaskPriorityColor(priority: TaskPriority): string {
     switch (priority) {
       case TaskPriority.High:
@@ -177,10 +270,6 @@ export class TaskListViewComponent implements OnDestroy {
       default:
         break;
     }
-  }
-
-  public shouldShowNoTasks(): boolean {
-    return !this.hasTasks; // && !this.isFiltering;
   }
 
   // private get isFiltering(): boolean {
