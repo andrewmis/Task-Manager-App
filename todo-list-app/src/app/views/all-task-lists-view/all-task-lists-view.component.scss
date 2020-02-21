@@ -18,10 +18,6 @@ mat-card {
   justify-content: space-between;
 }
 
-.full-height {
-  height: 100%;
-}
-
 mat-card-content {
 }
 
@@ -30,13 +26,28 @@ mat-checkbox {
   margin-right: 0.5rem;
 }
 
-form::ng-deep .mat-form-field-wrapper {
-  margin: unset;
-  padding: unset;
-}
-
 mat-slide-toggle {
   margin-right: 5px;
+}
+
+mat-selection-list {
+  padding-top: unset;
+}
+
+mat-form-field {
+  margin: 1% 0 1% 1%;
+}
+
+.align-text-right {
+  text-align: right;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .card-content {
@@ -62,40 +73,8 @@ mat-slide-toggle {
   background-color: mat-color($primary, default);
 }
 
-.reorder-width {
-  width: calc(100% - #{$defaultIconSize}) !important;
-}
-
-.edit-width {
-  width: calc(100% - #{$defaultIconSize}) !important;
-}
-
-mat-selection-list {
-  padding-top: unset;
-}
-
-mat-form-field {
-  margin: 1% 0 1% 1%;
-}
-
-.mat-icon-button {
-  width: fit-content;
-}
-
 .cdk-drag-preview > * {
   display: none;
-}
-
-.align-text-right {
-  text-align: right;
-}
-
-.align-self-center {
-  align-self: center;
-}
-
-.bold {
-  font-weight: bold;
 }
 
 .card-header-container {
@@ -103,6 +82,10 @@ mat-form-field {
   padding: 0.625rem 0.625rem 0 0.625rem;
   border-bottom-left-radius: unset;
   border-bottom-right-radius: unset;
+}
+
+.edit-width {
+  width: calc(100% - #{$defaultIconSize}) !important;
 }
 
 .flex {
@@ -115,6 +98,36 @@ mat-form-field {
 
 .font-weight-normal, mat-checkbox {
   font-weight: normal;
+}
+
+.full-height {
+  height: 100%;
+}
+
+form::ng-deep .mat-form-field-wrapper {
+  margin: unset;
+  padding: unset;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons {
+  margin: 1%;
+
+  button {
+    height: 100%;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-icon-button {
+  width: fit-content;
 }
 
 .padding-10px {
@@ -137,31 +150,18 @@ mat-form-field {
   white-space: nowrap;
 }
 
+.no-lists-view {
+  height: $cardContentHeight;
+}
+
+.reorder-width {
+  width: calc(100% - #{$defaultIconSize}) !important;
+}
+
 .strike {
   text-decoration: line-through;
 }
 
 .task-count {
   font-size: 1rem;
-}
-
-.flex-space-between {
-  display: flex;
-  justify-content: space-between;
-}
-
-.form-buttons {
-  margin: 1%;
-
-  button {
-    height: 100%;
-  }
-}
-
-.full-width {
-  width: 100%;
-}
-
-.no-lists-view {
-  height: $cardContentHeight;
 }
