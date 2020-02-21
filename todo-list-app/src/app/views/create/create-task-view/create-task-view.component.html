@@ -1,56 +1,57 @@
 <mat-card>
-    <mat-card-title class="font-weight-normal">Create a Task</mat-card-title>
-    <mat-card-subtitle>{{ parentName }}</mat-card-subtitle>
+  <!-- Card Header -->
+  <mat-card-title class="font-weight-normal">Create a Task</mat-card-title>
+  <mat-card-subtitle>{{ parentName }}</mat-card-subtitle>
+
+  <!-- Card Content -->
   <mat-card-content>
     <form [formGroup]="taskDataFormGroup">
-      <div class="fields">
-        <!-- Title -->
-        <mat-form-field appearance="fill">
-          <mat-label>Title</mat-label>
-          <input
-            matInput
-            required
-            formControlName="title"
-            placeholder="My Task">
-        </mat-form-field>
-        <br>
-        <!-- Description -->
-        <mat-form-field appearance="fill">
-          <mat-label>Description</mat-label>
-          <textarea
-            matInput
-            formControlName="description"
-            placeholder="Ex: My grocery list for next week."></textarea>
-        </mat-form-field>
-        <br>
-        <!-- Priority -->
-        <mat-form-field
-          appearance="fill">
-          <mat-label>Priority</mat-label>
-          <mat-select
-            required
-            formControlName="priority">
-            <mat-option *ngFor="let priority of priorities | keyvalue" [value]="priority.value">
-              {{ priority.value }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <!-- Date due -->
-        <mat-form-field appearance="fill">
-          <mat-label>Task Due Date</mat-label>
-          <input
-            matInput
-            [min]="minDate"
-            [matDatepicker]="picker"
-            formControlName="dateDue">
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker">
-          </mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
+      <!-- Title -->
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          required
+          formControlName="title"
+          placeholder="My Task">
+      </mat-form-field>
+      <br>
+      <!-- Description -->
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Ex: My grocery list for next week."></textarea>
+      </mat-form-field>
+      <br>
+      <!-- Priority -->
+      <mat-form-field
+        appearance="fill">
+        <mat-label>Priority</mat-label>
+        <mat-select
+          required
+          formControlName="priority">
+          <mat-option *ngFor="let priority of priorities | keyvalue" [value]="priority.value">
+            {{ priority.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <!-- Date due -->
+      <mat-form-field appearance="fill">
+        <mat-label>Task Due Date</mat-label>
+        <input
+          matInput
+          [min]="minDate"
+          [matDatepicker]="picker"
+          formControlName="dateDue">
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
       <!-- Cancel/Create Buttons -->
       <div class="align-right">

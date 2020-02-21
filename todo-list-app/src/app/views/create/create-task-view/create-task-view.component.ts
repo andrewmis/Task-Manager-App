@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { v4 as GenerateUuid } from 'uuid';
 import { TaskPriority } from 'src/app/enumerations/task-priority';
 import { TaskManagerService } from 'src/app/services/task-manager.service';
 import { GetTodaysDate } from 'src/app/shared/utilities';
@@ -18,9 +17,8 @@ export class CreateTaskViewComponent {
   public parentName: string;
   public priorities = TaskPriority;
   public taskDataFormGroup: FormGroup;
-  public readonly minDate = new Date(GetTodaysDate());
+  public minDate = new Date(GetTodaysDate());
 
-  // tslint:disable-next-line: variable-name
   constructor(private _taskManager: TaskManagerService,
               private _listManager: ListManagerService) {
     this.taskDataFormGroup = new FormGroup ({
@@ -32,20 +30,31 @@ export class CreateTaskViewComponent {
     this.parentName = this._listManager.listBeingViewed.title;
   }
 
+  /**
+   * Checks if the form group data is valid for task creation.
+   */
   public canCreateTask() {
     const name = this.taskDataFormGroup.controls.title.value;
     return this.taskDataFormGroup.valid && !this._listManager.doesTaskNameExistOnListBeingViewed(name);
   }
 
+  /**
+   * Parses the form group data and creates a new task.
+   */
   public onCreate() {
+    // Get form data
     const taskData = this.taskDataFormGroup.value;
+    // Format input date
     if (taskData.dateDue) {
       taskData.dateDue = taskData.dateDue.toLocaleDateString();
     }
-
+    // Send data to task manager service to create new task
     this._taskManager.createTask(taskData);
   }
 
+  /**
+   * Exits the task creation view.
+   */
   public onCancelCreate() {
     this._taskManager.cancelCreateTask();
   }
