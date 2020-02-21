@@ -73,6 +73,13 @@ export class AllTaskListsViewComponent {
   }
 
   /**
+   * Check if either delete or edit mode is toggled.
+   */
+  public get isDeletingOrEditing(): boolean {
+    return this.isDeleting || this.isReordering;
+  }
+
+  /**
    * Toggles the ability to delete lists.
    */
   public onToggleDeleteMode(): void {
@@ -118,7 +125,7 @@ export class AllTaskListsViewComponent {
 
   /**
    * On choosing to advance create, begin creating a list.
-   * @param event The event emitted thrown.
+   * @param event The event emitted when the form is submitted.
    */
   public onDetailedAddTaskList(event): void {
     event.preventDefault();

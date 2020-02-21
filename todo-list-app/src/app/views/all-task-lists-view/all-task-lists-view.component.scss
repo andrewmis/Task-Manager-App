@@ -8,6 +8,8 @@ $accent: mat-palette($mat-teal);
 $theme: mat-light-theme($primary, $accent);
 $defaultIconSize: 1.5rem;
 $cardContentHeight: 500px;
+$checkBoxSize: 34px;
+$listItemWidthBase: calc(100% - #{$checkBoxSize});
 
 mat-card {
   padding: unset;
@@ -84,10 +86,6 @@ mat-form-field {
   border-bottom-right-radius: unset;
 }
 
-.edit-width {
-  width: calc(100% - #{$defaultIconSize}) !important;
-}
-
 .flex {
   display: flex;
 }
@@ -126,6 +124,10 @@ form::ng-deep .mat-form-field-wrapper {
   width: 100%;
 }
 
+.list-item-base-width {
+  width: $listItemWidthBase !important;
+}
+
 .mat-icon-button {
   width: fit-content;
 }
@@ -154,8 +156,8 @@ form::ng-deep .mat-form-field-wrapper {
   height: $cardContentHeight;
 }
 
-.reorder-width {
-  width: calc(100% - #{$defaultIconSize}) !important;
+.toggled-state-width  {
+  width: calc(#{$listItemWidthBase} - #{$defaultIconSize}) !important;
 }
 
 .strike {

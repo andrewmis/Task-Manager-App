@@ -1,39 +1,14 @@
 <mat-card>
   <div>
     <!-- Card Header -->
-    <div class="card-header-container flex-space-between">
-      <div>
-        <!-- Task List Title -->
-        <mat-card-title class="font-weight-normal">
-          {{ title }}
-        </mat-card-title>
-        <!-- Task List Description -->
-        <mat-card-subtitle>{{ description ? description : 'No description' }}</mat-card-subtitle>
-        <!-- Task List Due Date -->
-        <mat-card-subtitle>Due Date: {{ allTasksDueDate ? allTasksDueDate : 'none' }}</mat-card-subtitle>
-      </div>
-      <!-- Task List Buttons (Add Task/Edit) -->
-      <div>
-        <!-- Edit Task List -->
-        <button
-          mat-icon-button
-          (click)="onEditList()"
-          matTooltip="Edit this list">
-          <mat-icon>settings</mat-icon>
-        </button>
-        <!-- Close Task List -->
-        <button
-          mat-icon-button
-          (click)="onStopViewingList()"
-          matTooltip="Close this list view">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-    </div>
+    <ng-container *ngTemplateOutlet="cardHeader"></ng-container>
     <mat-divider></mat-divider>
+
     <!-- List of Task Options -->
+    <!-- Filter/Edit/Reorder -->
     <div class="flex-space-between padding-10px">
       <span class="align-self-center">Filter options placeholder...</span>
+      <!-- TODO: Renable filter options -->
       <!-- Filter options by -->
       <!-- <span class="bold align-self-center">
         Show:
@@ -74,7 +49,7 @@
     <mat-divider></mat-divider>
     <!-- List of Tasks -->
     <div class="card-content">
-      <ng-container *ngIf="shouldShowNoTasks() then showNoTasks; else showAllTasks"></ng-container>
+      <ng-container *ngIf="shouldShowNoTasks then showNoTasks; else showAllTasks"></ng-container>
     </div>
   </div>
 
@@ -116,6 +91,42 @@
       </div>
   </form>
 </mat-card>
+
+<!-- NG Templates -->
+
+<!-- Card Header -->
+<ng-template #cardHeader>
+  <div class="card-header-container flex-space-between">
+    <div class="full-width-minus-icons">
+      <!-- Task List Title -->
+      <mat-card-title class="title font-weight-normal">
+        {{ title }}
+      </mat-card-title>
+      <!-- Task List Description -->
+      <mat-card-subtitle>{{ description ? description : 'No description' }}</mat-card-subtitle>
+      <!-- Task List Due Date -->
+      <mat-card-subtitle>Due Date: {{ allTasksDueDate ? allTasksDueDate : 'none' }}</mat-card-subtitle>
+    </div>
+
+    <!-- Task List Buttons (Add Task/Edit) -->
+    <div>
+      <!-- Edit Task List -->
+      <button
+        mat-icon-button
+        (click)="onEditList()"
+        matTooltip="Edit this list">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <!-- Close Task List -->
+      <button
+        mat-icon-button
+        (click)="onStopViewingList()"
+        matTooltip="Close this list view">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
 
 <!-- No tasks to show -->
 <ng-template #showNoTasks>
@@ -160,7 +171,7 @@
                 <h5 [matTooltip]="task.dateCompleted">DONE</h5>
               </ng-container>
               <ng-template #taskDueDate>
-                <h5 [matTooltip]="task.dateDue" class="due-date">{{ task.dateDue ? 'DUE DATE' : '' }}</h5>
+                <h5 [matTooltip]="task.dateDue" class="due-date no-wrap">{{ task.dateDue ? 'DUE DATE' : '' }}</h5>
               </ng-template>
             </div>
             <!-- Task Priority Icon -->

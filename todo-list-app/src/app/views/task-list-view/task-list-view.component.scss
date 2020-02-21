@@ -2,10 +2,9 @@
 
 @include mat-core();
 
-// Default theme:
+// Default theme colors:
 $primary: mat-palette($mat-blue,800);
 $accent: mat-palette($mat-teal);
-$theme: mat-light-theme($primary, $accent);
 $defaultIconSize: 1.5rem;
 $cardContentHeight: 445px;
 
@@ -18,9 +17,34 @@ mat-card {
   height: 100%;
 }
 
-mat-checkbox {
-  padding: 0.3125rem;
+// Waiting on filter options
+// mat-checkbox {
+//   padding: 0.3125rem;
+// }
 
+mat-form-field {
+  margin: 1% 0 1% 1%;
+}
+
+mat-selection-list {
+  padding-top: unset;
+}
+
+.align-text-right {
+  text-align: right;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+// Waiting on filter options
+// .bold {
+//   font-weight: bold;
+// }
+
+.card-header-container {
+  padding: 0.625rem 0.625rem 0 0.625rem
 }
 
 .card-content {
@@ -46,61 +70,21 @@ mat-checkbox {
   background-color: mat-color($primary, default);
 }
 
-
-form::ng-deep .mat-form-field-wrapper {
-  margin: unset;
-  padding: unset;
-}
-
-mat-slide-toggle {
-  margin-right: 5px;
+.cdk-drag-preview > * {
+  display: none;
 }
 
 .due-date {
   color: red;
 }
 
-.reorder-width {
-  width: calc(100% - #{$defaultIconSize}) !important;
-}
-
 .edit-width {
   width: calc(100% - 2 * #{$defaultIconSize}) !important;
 }
 
-mat-selection-list {
-  padding-top: unset;
-}
-
-mat-form-field {
-  margin: 1% 0 1% 1%;
-}
-
-.mat-icon-button {
-  width: fit-content;
-}
-
-.cdk-drag-preview > * {
-  display: none;
-}
-
-.align-text-right {
-  text-align: right;
-}
-
-.align-self-center {
-  align-self: center;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.card-header-container {
-  border-radius: 0.25px;
-  padding: 0.625rem 0.625rem 0 0.625rem;
-  border-bottom-left-radius: unset;
-  border-bottom-right-radius: unset;
+form::ng-deep .mat-form-field-wrapper {
+  margin: unset;
+  padding: unset;
 }
 
 .flex {
@@ -115,8 +99,21 @@ mat-form-field {
   font-weight: normal;
 }
 
-.padding-10px {
-  padding: 0.625rem;
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.full-width-minus-icons {
+  width: calc(100% - 2 * #{$defaultIconSize});
+}
+
+.form-buttons {
+  margin: 1%;
+
+  button {
+    height: 100%;
+  }
 }
 
 .margin-right-5px {
@@ -131,8 +128,24 @@ mat-form-field {
   margin-right: unset;
 }
 
+.mat-icon-button {
+  width: fit-content;
+}
+
+.no-tasks-view {
+  height: $cardContentHeight;
+}
+
 .no-wrap {
   white-space: nowrap;
+}
+
+.padding-10px {
+  padding: 0.625rem;
+}
+
+.reorder-width {
+  width: calc(100% - #{$defaultIconSize}) !important;
 }
 
 .strike {
@@ -143,19 +156,8 @@ mat-form-field {
   font-size: 1rem;
 }
 
-.flex-space-between {
-  display: flex;
-  justify-content: space-between;
-}
-
-.form-buttons {
-  margin: 1%;
-
-  button {
-    height: 100%;
-  }
-}
-
-.no-tasks-view {
-  height: $cardContentHeight;
+.title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
