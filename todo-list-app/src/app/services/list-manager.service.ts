@@ -176,6 +176,7 @@ export class ListManagerService {
    * @param list The list to begin viewing.
    */
   public beginViewingList(list: TaskList): void {
+    this.cancelCreateState();
     this._isViewingList = true;
     this._listBeingViewed = list;
   }
@@ -185,7 +186,6 @@ export class ListManagerService {
    * @param list The list to begin editing.
    */
   public beginEditingList(list: TaskList): void {
-    this.stopViewingList();
     this._isEditingList = true;
     this._listUnderEdit = list;
   }
@@ -215,6 +215,7 @@ export class ListManagerService {
    * Exits the list viewing state.
    */
   public stopViewingList(): void {
+    this.cancelEditingList();
     this._isViewingList = false;
     this._listBeingViewed = undefined;
   }

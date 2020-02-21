@@ -3,25 +3,17 @@
   <!-- Left Side -->
   <div class="list-window">
     <!-- View all created lists -->
-    <ng-container *ngIf="inDefaultState">
+    <ng-container *ngIf="inShowAllListsState; else showListState">
       <all-task-lists-view class="window"></all-task-lists-view>
     </ng-container>
     <!-- View list -->
-    <ng-container *ngIf="inListViewState">
+    <ng-template #showListState>
       <task-list-view class="window"></task-list-view>
-    </ng-container>
-    <!-- Edit a list-->
-    <ng-container *ngIf="inListEditState">
-      <edit-task-list-view class="window"></edit-task-list-view>
-    </ng-container>
-    <!-- Create a new list -->
-    <ng-container *ngIf="inListCreationState">
-      <create-task-list-view class="window"></create-task-list-view>
-    </ng-container>
+    </ng-template>
   </div>
 
   <!-- Right Side -->
-  <div class="task-window" *ngIf="inListViewState || inListEditState">
+  <div class="task-window" *ngIf="inEditOrCreationState">
     <!-- Create a new detailed task -->
     <ng-container *ngIf="inTaskCreationState">
       <create-task-view class="window"></create-task-view>
@@ -29,6 +21,14 @@
     <!-- Edit a task -->
     <ng-container *ngIf="inTaskEditState">
       <edit-task-view class="window"></edit-task-view>
+    </ng-container>
+    <!-- Create a new list -->
+    <ng-container *ngIf="inListCreationState">
+      <create-task-list-view class="window"></create-task-list-view>
+    </ng-container>
+    <!-- Edit a list-->
+    <ng-container *ngIf="inListEditState">
+      <edit-task-list-view class="window"></edit-task-list-view>
     </ng-container>
   </div>
 </div>
