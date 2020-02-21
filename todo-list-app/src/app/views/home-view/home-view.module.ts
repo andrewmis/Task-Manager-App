@@ -16,6 +16,4 @@ import { SharedModule } from 'src/app/shared/shared.module';
       HomeViewComponent,
   ]
 })
-export class HomeViewModule {
-
-}
+export class HomeViewModule {}
