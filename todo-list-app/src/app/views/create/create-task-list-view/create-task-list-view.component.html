@@ -4,7 +4,9 @@
 
   <!-- Card Content -->
   <mat-card-content>
-    <form [formGroup]="listDataFormGroup">
+    <form
+    (ngSubmit)="onCreate()"
+    [formGroup]="listDataFormGroup">
       <div class="fields">
         <!-- Title -->
         <mat-form-field appearance="fill">
@@ -46,13 +48,14 @@
         <button
           class="margin-right-10px"
           mat-raised-button
+          type="button"
           (click)="onCancelCreate()">
           Cancel
         </button>
         <button
           mat-raised-button
           [disabled]="!canCreateList()"
-          (click)="onCreate()">
+          type="submit">
           Create
         </button>
       </div>

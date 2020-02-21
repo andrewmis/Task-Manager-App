@@ -210,11 +210,8 @@ export class TaskListViewComponent implements OnDestroy {
 
   /**
    * On choosing to advance create, begin creating a task.
-   * @param event The event emitted when the form is submitted.
    */
-  public onDetailedAddTask(event): void {
-    event.preventDefault();
-
+  public onDetailedAddTask(): void {
     this._taskManager.beginCreateTask();
   }
 

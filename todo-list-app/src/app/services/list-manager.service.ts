@@ -114,7 +114,7 @@ export class ListManagerService {
     // Populate with name and new id
     newList.id = GenerateUuid();
     newList.title = name;
-    newList.dateCreated = GetTodaysDate();
+    newList.tasks = [];
 
     // Push to store
     this.taskLists.push(newList);

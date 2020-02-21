@@ -35,7 +35,9 @@ export class CreateTaskListViewComponent {
   public onCreate(): void {
     // Get the form data
     const listData = this.listDataFormGroup.value;
-    listData.allTasksDueDate = listData.allTasksDueDate.toLocaleDateString();
+    if (listData.allTasksDueDate) {
+      listData.allTasksDueDate = listData.allTasksDueDate.toLocaleDateString();
+    }
 
     // Give to list manager service
     this._listManagerService.createList(listData);
