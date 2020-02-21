@@ -139,7 +139,7 @@ export class AllTaskListsViewComponent {
     }
 
     // Delete list
-    this._listManager.deleteList(list);
+    this._listManager.deleteList(list.id);
 
     // Check if should exit delete mode
     if (!this.hasList) {
