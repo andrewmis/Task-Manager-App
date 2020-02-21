@@ -1,4 +1,6 @@
+$padding-10px: 0.625rem;
+
 .sidenav-content-container {
-  height: calc(100% - 1.5rem);
-  padding: 0.625rem;
+  height: calc(100% - 2 * #{$padding-10px});
+  padding: $padding-10px;
 }

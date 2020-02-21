@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskList } from 'src/app/models/task-list.model';
-import { Task } from 'src/app/models/task.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GetTodaysDate } from 'src/app/shared/utilities';
 import { ListManagerService } from 'src/app/services/list-manager.service';
@@ -14,14 +13,6 @@ import { ListManagerService } from 'src/app/services/list-manager.service';
 export class EditTaskListViewComponent implements OnInit {
 
   public listData: TaskList;
-
-  public id: string;
-  public title: string;
-  public description: string;
-  public allTaskCompleted: boolean;
-  public allTasksDueDate: string;
-  public tasks: Task[];
-
   public minDate = new Date(GetTodaysDate());
 
   public listFields: FormGroup;
@@ -31,33 +22,38 @@ export class EditTaskListViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.listData.id;
-    this.title = this.listData.title;
-    this.description = this.listData.description;
-    this.allTaskCompleted = this.listData.allTasksCompleted;
-    this.allTasksDueDate = this.listData.allTasksDueDate;
-    this.tasks = this.listData.tasks;
+    const formattedDate = this.listData.allTasksDueDate ? new Date(this.listData.allTasksDueDate) : '';
 
-    const formattedDate = this.allTasksDueDate ? new Date(this.allTasksDueDate) : '';
     this.listFields = new FormGroup ({
-      title: new FormControl(this.title),
-      description: new FormControl(this.description),
+      title: new FormControl(this.listData.title),
+      description: new FormControl(this.listData.description),
       allTasksDueDate: new FormControl(formattedDate)
     });
   }
 
+  /**
+   * Checks if the form data is valid and can be saved to the current list.
+   */
   public canSaveList(): boolean {
     const name = this.listFields.controls.title.value;
     let nameIsUnique = true;
 
-    if (name !== this.title && this._listManager.doesListExistWithName(name)) {
+    // Verify that the name is valid/unique
+    if (name !== this.listData.title && this._listManager.doesListExistWithName(name)) {
       nameIsUnique = false;
     }
+
     return this.listFields.valid && nameIsUnique;
   }
 
+  /**
+   * Save the edit data to the list.
+   */
   public onSave(): void {
+    // Get form data
     const edits = this.listFields.value;
+
+    // Format input date if supplied
     if (edits.allTasksDueDate) {
       edits.allTasksDueDate = edits.allTasksDueDate.toLocaleDateString();
     }
@@ -65,6 +61,9 @@ export class EditTaskListViewComponent implements OnInit {
     this._listManager.saveEditsToList(edits);
   }
 
+  /**
+   * Exits the list editing state.
+   */
   public onCancelEdit(): void {
     this._listManager.cancelEditingList();
   }
