@@ -1,7 +1,8 @@
 $card-padding: 2rem;
+$card-fixed-width: 500px;
 
 mat-card {
-  max-width: calc(500px - #{$card-padding});
+  max-width: calc(#{$card-fixed-width} - #{$card-padding});
 }
 
 .align-right {
